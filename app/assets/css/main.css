@@ -1,0 +1,63 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+@custom-variant dark (&:where(.dark, .dark *):not(:where(.light, .light *)));
+
+@layer base {
+  html,
+  body {
+    overflow-x: clip;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-canvas font-sans text-fg-muted antialiased;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display font-semibold tracking-tight text-fg;
+    font-style: normal;
+    text-wrap: balance;
+    overflow-wrap: anywhere;
+    min-width: 0;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  a,
+  button {
+    @apply transition duration-200 ease-out;
+  }
+  :focus-visible {
+    @apply rounded-sm outline-2 outline-offset-2 outline-focus;
+  }
+  ::selection {
+    @apply bg-accent text-canvas;
+  }
+}
+
+@utility container-page {
+  @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+}
+@utility surface {
+  @apply rounded-lg border border-line bg-surface/60;
+}
+@utility surface-link {
+  @apply surface hover:border-line-strong hover:bg-surface active:scale-[0.99];
+}
+@utility link {
+  @apply border-b border-line text-fg hover:border-accent hover:text-accent;
+}
+@utility eyebrow-date {
+  @apply font-mono text-xs tracking-widest text-fg-subtle uppercase tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

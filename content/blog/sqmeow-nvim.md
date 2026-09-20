@@ -55,14 +55,14 @@ Press `?` in the drawer or the result window to see every keymap.
 
 A few result-window keys I use constantly:
 
-| Key         | Action                                |
-| ----------- | ------------------------------------- |
-| `L` / `H`   | Next / previous page                  |
-| `K`         | Show the row under the cursor         |
-| `gf`        | Filter with a `WHERE` clause          |
-| `=`         | Filter by the value under the cursor  |
-| `s`         | Sort by the column under the cursor   |
-| `x`         | Export to CSV, JSON, or SQL `INSERT`s |
+| Key       | Action                                |
+| --------- | ------------------------------------- |
+| `L` / `H` | Next / previous page                  |
+| `K`       | Show the row under the cursor         |
+| `gf`      | Filter with a `WHERE` clause          |
+| `=`       | Filter by the value under the cursor  |
+| `s`       | Sort by the column under the cursor   |
+| `x`       | Export to CSV, JSON, or SQL `INSERT`s |
 
 Filters and sorts run on the database, so they work on the full table, not just the page you see. Every result is saved in the query log, and `:Sqmeow log` reopens it, even after a restart.
 

@@ -6,7 +6,10 @@ const links = [
 ];
 const route = useRoute();
 const menu = ref<HTMLDetailsElement>();
-watch(() => route.path, () => menu.value?.removeAttribute("open"));
+watch(
+  () => route.path,
+  () => menu.value?.removeAttribute("open"),
+);
 </script>
 
 <template>
@@ -19,7 +22,12 @@ watch(() => route.path, () => menu.value?.removeAttribute("open"));
       <nav aria-label="Main" class="hidden md:block">
         <ul class="flex items-center gap-x-8">
           <li v-for="l in links" :key="l.to">
-            <NuxtLink :to="l.to" class="font-display text-base text-fg-muted hover:text-fg" active-class="!text-accent">{{ l.label }}</NuxtLink>
+            <NuxtLink
+              :to="l.to"
+              class="font-display text-base text-fg-muted hover:text-fg"
+              active-class="!text-accent"
+              >{{ l.label }}</NuxtLink
+            >
           </li>
         </ul>
       </nav>
@@ -27,12 +35,28 @@ watch(() => route.path, () => menu.value?.removeAttribute("open"));
       <div class="flex items-center gap-2">
         <ThemeToggle />
         <details ref="menu" class="group relative md:hidden">
-          <summary class="grid size-9 cursor-pointer list-none place-items-center rounded-md border border-line bg-surface/60 text-fg [&::-webkit-details-marker]:hidden" aria-label="Menu">
-            <span class="group-open:hidden"><Icon name="ph:list" class="block size-4" aria-hidden="true" /></span>
-            <span class="hidden group-open:block"><Icon name="ph:x" class="block size-4" aria-hidden="true" /></span>
+          <summary
+            class="grid size-9 cursor-pointer list-none place-items-center rounded-md border border-line bg-surface/60 text-fg [&::-webkit-details-marker]:hidden"
+            aria-label="Menu"
+          >
+            <span class="group-open:hidden"
+              ><Icon name="ph:list" class="block size-4" aria-hidden="true"
+            /></span>
+            <span class="hidden group-open:block"
+              ><Icon name="ph:x" class="block size-4" aria-hidden="true"
+            /></span>
           </summary>
-          <nav aria-label="Mobile" class="surface absolute right-0 z-30 mt-2 w-48 bg-canvas p-2 shadow-lg">
-            <NuxtLink v-for="l in links" :key="l.to" :to="l.to" class="block rounded-md px-3 py-2 font-display text-fg hover:bg-surface-strong" active-class="!text-accent">
+          <nav
+            aria-label="Mobile"
+            class="surface absolute right-0 z-30 mt-2 w-48 bg-canvas p-2 shadow-lg"
+          >
+            <NuxtLink
+              v-for="l in links"
+              :key="l.to"
+              :to="l.to"
+              class="block rounded-md px-3 py-2 font-display text-fg hover:bg-surface-strong"
+              active-class="!text-accent"
+            >
               {{ l.label }}
             </NuxtLink>
           </nav>

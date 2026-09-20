@@ -13,13 +13,19 @@ useHead({ title: notFound.value ? "Page not found · Vo Quang Chien" : "Error ·
       <div class="grid items-center gap-12 py-12 md:grid-cols-[minmax(0,1fr)_auto]">
         <div>
           <p class="eyebrow-date">Error {{ error.statusCode }}</p>
-          <h1 class="mt-4 text-4xl sm:text-5xl">{{ notFound ? "This page doesn't exist." : "Something broke." }}</h1>
+          <h1 class="mt-4 text-4xl sm:text-5xl">
+            {{ notFound ? "This page doesn't exist." : "Something broke." }}
+          </h1>
           <p class="mt-6 max-w-[55ch] text-lg leading-relaxed">
             {{ notFound ? "The link may be old, or the post was removed." : error.message }}
           </p>
           <p class="mt-8 flex flex-wrap gap-x-6 gap-y-2">
-            <button type="button" class="link" @click="clearError({ redirect: '/' })">Go home</button>
-            <button type="button" class="link" @click="clearError({ redirect: '/blog' })">Read the blog</button>
+            <button type="button" class="link" @click="clearError({ redirect: '/' })">
+              Go home
+            </button>
+            <button type="button" class="link" @click="clearError({ redirect: '/blog' })">
+              Read the blog
+            </button>
           </p>
         </div>
         <AppLogo class="hidden size-48 opacity-40 md:block" />

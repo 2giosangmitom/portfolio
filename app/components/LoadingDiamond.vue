@@ -1,6 +1,20 @@
 <template>
-  <svg viewBox="0 0 20 20" fill="currentColor" role="status" aria-label="Loading" class="loading-diamond">
-    <rect v-for="(p, i) in pixels" :key="i" :x="p[0]" :y="p[1]" width="4" height="4" :style="{ animationDelay: `${i * 0.1}s` }" />
+  <svg
+    viewBox="0 0 20 20"
+    fill="currentColor"
+    role="status"
+    aria-label="Loading"
+    class="loading-diamond"
+  >
+    <rect
+      v-for="(p, i) in pixels"
+      :key="i"
+      :x="p[0]"
+      :y="p[1]"
+      width="4"
+      height="4"
+      :style="{ animationDelay: `${i * 0.1}s` }"
+    />
   </svg>
 </template>
 

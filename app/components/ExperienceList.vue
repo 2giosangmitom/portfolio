@@ -1,9 +1,15 @@
 <script setup lang="ts">
-const { data: jobs } = await useAsyncData("experience", () => queryCollection("experience").order("start", "DESC").all());
+const { data: jobs } = await useAsyncData("experience", () =>
+  queryCollection("experience").order("start", "DESC").all(),
+);
 </script>
 
 <template>
-  <ol v-if="jobs?.length" class="grid grid-cols-1 gap-x-12 gap-y-14" :class="{ 'lg:grid-cols-2': jobs.length > 1 }">
+  <ol
+    v-if="jobs?.length"
+    class="grid grid-cols-1 gap-x-12 gap-y-14"
+    :class="{ 'lg:grid-cols-2': jobs.length > 1 }"
+  >
     <li
       v-for="job in jobs"
       :key="job.path"
@@ -15,7 +21,12 @@ const { data: jobs } = await useAsyncData("experience", () => queryCollection("e
         class="surface-link block size-20 shrink-0 overflow-hidden"
         :aria-label="job.url ? `${job.company} website` : undefined"
       >
-        <ImageSlot :src="job.logo" :alt="`${job.company} logo`" :hint="`logos/${job.company.toLowerCase()}.png`" sizes="80px" />
+        <ImageSlot
+          :src="job.logo"
+          :alt="`${job.company} logo`"
+          :hint="`logos/${job.company.toLowerCase()}.png`"
+          sizes="80px"
+        />
       </component>
       <div class="min-w-0">
         <h3 class="text-xl">{{ job.company }}</h3>

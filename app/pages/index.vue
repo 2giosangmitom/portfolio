@@ -1,14 +1,24 @@
 <script setup lang="ts">
 import { profile } from "~/data";
 
-const { data: posts } = await useAsyncData("home-posts", () => queryCollection("blog").order("date", "DESC").limit(3).select("path", "title", "description", "date").all());
+const { data: posts } = await useAsyncData("home-posts", () =>
+  queryCollection("blog")
+    .order("date", "DESC")
+    .limit(3)
+    .select("path", "title", "description", "date")
+    .all(),
+);
 </script>
 
 <template>
   <div>
-    <section class="mb-24 flex flex-col items-start justify-between gap-12 xl:flex-row xl:items-center">
+    <section
+      class="mb-24 flex flex-col items-start justify-between gap-12 xl:flex-row xl:items-center"
+    >
       <div class="max-w-2xl">
-        <h1 v-reveal class="mb-6 text-4xl leading-tight sm:text-5xl sm:leading-[1.15]">{{ profile.headline }}</h1>
+        <h1 v-reveal class="mb-6 text-4xl leading-tight sm:text-5xl sm:leading-[1.15]">
+          {{ profile.headline }}
+        </h1>
         <p v-reveal="rise(0.08)" class="text-lg leading-relaxed">{{ profile.summary }}</p>
         <SocialLinks v-reveal="rise(0.16)" class="mt-10" />
       </div>
@@ -32,12 +42,20 @@ const { data: posts } = await useAsyncData("home-posts", () => queryCollection("
       </div>
       <ul class="divide-y divide-line border-y border-line">
         <li v-for="p in posts" :key="p.path">
-          <NuxtLink :to="p.path" class="group grid gap-1 py-5 sm:grid-cols-[7.5rem_minmax(0,1fr)] sm:items-baseline sm:gap-8">
+          <NuxtLink
+            :to="p.path"
+            class="group grid gap-1 py-5 sm:grid-cols-[7.5rem_minmax(0,1fr)] sm:items-baseline sm:gap-8"
+          >
             <span class="min-w-0">
-              <span class="block font-display text-xl font-semibold tracking-tight text-fg group-hover:text-accent">{{ p.title }}</span>
+              <span
+                class="block font-display text-xl font-semibold tracking-tight text-fg group-hover:text-accent"
+                >{{ p.title }}</span
+              >
               <span class="mt-1 block max-w-[65ch] text-pretty">{{ p.description }}</span>
             </span>
-            <time :datetime="p.date" class="eyebrow-date sm:order-first">{{ formatDate(p.date) }}</time>
+            <time :datetime="p.date" class="eyebrow-date sm:order-first">{{
+              formatDate(p.date)
+            }}</time>
           </NuxtLink>
         </li>
       </ul>

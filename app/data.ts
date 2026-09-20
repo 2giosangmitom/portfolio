@@ -3,13 +3,18 @@ export const profile = {
   handle: "2giosangmitom",
   school: "Hue University of Sciences",
   headline: "I build backend systems and AI-powered web applications.",
-  summary: "Student developer at Hue University of Sciences, focused on backend, microservices, and applied AI.",
+  summary:
+    "Student developer at Hue University of Sciences, focused on backend, microservices, and applied AI.",
   photo: "",
 };
 
 export const socials = [
   { name: "GitHub", url: "https://github.com/2giosangmitom", icon: "simple-icons:github" },
-  { name: "LinkedIn", url: "https://www.linkedin.com/in/2giosangmitom/", icon: "simple-icons:linkedin" },
+  {
+    name: "LinkedIn",
+    url: "https://www.linkedin.com/in/2giosangmitom/",
+    icon: "simple-icons:linkedin",
+  },
   { name: "YouTube", url: "https://www.youtube.com/@2giosangmitom", icon: "simple-icons:youtube" },
   { name: "Email", url: "mailto:2giosangmitom@proton.me", icon: "ph:envelope-simple" },
 ];

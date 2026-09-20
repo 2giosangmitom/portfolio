@@ -4,7 +4,17 @@ import { readTime } from "./app/utils/readTime.ts";
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
-  modules: ["@nuxt/a11y", "@nuxt/content", "@nuxt/eslint", "@nuxt/fonts", "@nuxt/hints", "@nuxt/icon", "@nuxt/image", "@nuxtjs/color-mode", "motion-v/nuxt"],
+  modules: [
+    "@nuxt/a11y",
+    "@nuxt/content",
+    "@nuxt/eslint",
+    "@nuxt/fonts",
+    "@nuxt/hints",
+    "@nuxt/icon",
+    "@nuxt/image",
+    "@nuxtjs/color-mode",
+    "motion-v/nuxt",
+  ],
   css: ["~/assets/css/main.css"],
   app: {
     head: {
@@ -13,17 +23,25 @@ export default defineNuxtConfig({
       meta: [
         {
           name: "description",
-          content: "Vo Quang Chien, student developer at Hue University of Sciences. Backend, microservices, and applied AI.",
+          content:
+            "Vo Quang Chien, student developer at Hue University of Sciences. Backend, microservices, and applied AI.",
         },
         { property: "og:site_name", content: "Vo Quang Chien" },
         { property: "og:type", content: "website" },
         { property: "og:title", content: "Vo Quang Chien" },
-        { property: "og:description", content: "Vo Quang Chien, student developer at Hue University of Sciences. Backend, microservices, and applied AI." },
+        {
+          property: "og:description",
+          content:
+            "Vo Quang Chien, student developer at Hue University of Sciences. Backend, microservices, and applied AI.",
+        },
       ],
-      link: [
-        { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+      link: [{ rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }],
+      noscript: [
+        {
+          innerHTML:
+            '<style>[style*="opacity"]{opacity:1!important;transform:none!important}</style>',
+        },
       ],
-      noscript: [{ innerHTML: '<style>[style*="opacity"]{opacity:1!important;transform:none!important}</style>' }],
     },
   },
   motionV: {
@@ -39,7 +57,8 @@ export default defineNuxtConfig({
   colorMode: { storageKey: "theme" },
   hooks: {
     "content:file:afterParse"({ content, collection }) {
-      if (collection.name === "blog") content.readingTime = readTime(content.body as { value?: unknown[] });
+      if (collection.name === "blog")
+        content.readingTime = readTime(content.body as { value?: unknown[] });
     },
   },
   content: {
@@ -47,23 +66,33 @@ export default defineNuxtConfig({
       markdown: {
         highlight: {
           theme: { default: "github-light-high-contrast", dark: "github-dark-high-contrast" },
-          langs: ["js", "ts", "json", "vue", "css", "html", "bash", "sh", "md", "yaml", "lua", "rust", "python", "sql"],
+          langs: [
+            "js",
+            "ts",
+            "json",
+            "vue",
+            "css",
+            "html",
+            "bash",
+            "sh",
+            "md",
+            "yaml",
+            "lua",
+            "rust",
+            "python",
+            "sql",
+          ],
         },
       },
     },
   },
-  image: { quality: 80 },
-  mdc: { components: { map: { style: "ContentStyle" } } },
+  image: { quality: 80, format: ["webp"] },
   fonts: {
-    defaults: { styles: ["normal"], subsets: ["latin"] },
     families: [
-      { name: "Inter", weights: ["400 600"], preload: true },
-      { name: "Tomorrow", weights: [400, 500, 600, 700], preload: true },
-      { name: "Geist Mono", weights: [400] },
+      { name: "Tomorrow", weights: [500] },
+      { name: "Public Sans", weights: [400] },
     ],
   },
-  runtimeConfig: { githubToken: "" },
-  icon: { serverBundle: { collections: ["ph", "simple-icons"] } },
   vite: {
     plugins: [tailwindcss()],
   },

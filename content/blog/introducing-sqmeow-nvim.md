@@ -25,17 +25,17 @@ Paging through a large table with `L` and `H`.
 
 The same drawer, scratchpad, and result window work across SQL and NoSQL databases:
 
-| Database                       | Query language      |
-| ------------------------------ | ------------------- |
-| PostgreSQL, CockroachDB        | SQL                 |
-| MySQL, MariaDB                 | SQL                 |
-| SQLite                         | SQL                 |
-| DuckDB                         | SQL                 |
-| ClickHouse                     | SQL (read-only)     |
-| Redis, Valkey, Dragonfly       | Redis commands      |
-| MongoDB                        | Extended JSON       |
-| ScyllaDB, Cassandra            | CQL                 |
-| SurrealDB                      | SurrealQL           |
+| Database                 | Query language  |
+| ------------------------ | --------------- |
+| PostgreSQL, CockroachDB  | SQL             |
+| MySQL, MariaDB           | SQL             |
+| SQLite                   | SQL             |
+| DuckDB                   | SQL             |
+| ClickHouse               | SQL (read-only) |
+| Redis, Valkey, Dragonfly | Redis commands  |
+| MongoDB                  | Extended JSON   |
+| ScyllaDB, Cassandra      | CQL             |
+| SurrealDB                | SurrealQL       |
 
 ::media{alt="Browsing Redis keys grouped by type in the drawer" hint="blog/sqmeow/redis.png"}
 Redis keys, grouped by type.

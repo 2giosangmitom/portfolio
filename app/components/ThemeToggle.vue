@@ -3,14 +3,25 @@
 const colorMode = useColorMode();
 const mounted = ref(false);
 onMounted(() => (mounted.value = true));
-const toggled = computed(() => (!mounted.value || colorMode.unknown ? undefined : colorMode.value === "dark"));
+const toggled = computed(() =>
+  !mounted.value || colorMode.unknown ? undefined : colorMode.value === "dark",
+);
 
 function toggle() {
   colorMode.preference = colorMode.value === "dark" ? "light" : "dark";
 }
 
 const clipMainId = `classic-main-${useId()}`;
-const rays = ["M12 1.4v2.4", "m20.3 3.7-2.5 2.5", "M22.6 12h-2.4", "M12 22.6v-2.4", "M1.4 12h2.4", "m20.3 20.3-2.5-2.5", "m3.7 20.3 2.5-2.5", "m3.7 3.7 2.5 2.5"];
+const rays = [
+  "M12 1.4v2.4",
+  "m20.3 3.7-2.5 2.5",
+  "M22.6 12h-2.4",
+  "M12 22.6v-2.4",
+  "M1.4 12h2.4",
+  "m20.3 20.3-2.5-2.5",
+  "m3.7 20.3 2.5-2.5",
+  "m3.7 3.7 2.5 2.5",
+];
 </script>
 
 <template>
@@ -23,7 +34,13 @@ const rays = ["M12 1.4v2.4", "m20.3 3.7-2.5 2.5", "M22.6 12h-2.4", "M12 22.6v-2.
     class="grid size-9 place-items-center rounded-full border border-line bg-surface/60 text-lg text-fg hover:border-line-strong hover:text-accent active:translate-y-px"
     @click="toggle"
   >
-    <svg width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" style="--toggles-dot-dev--duration: 400ms">
+    <svg
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      style="--toggles-dot-dev--duration: 400ms"
+    >
       <defs>
         <clipPath :id="clipMainId">
           <path

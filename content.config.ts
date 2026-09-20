@@ -27,8 +27,8 @@ export default defineContentConfig({
       }),
     }),
     experience: defineCollection({
-      type: "page",
-      source: "experience/*.md",
+      type: "data",
+      source: "experience/*.yml",
       schema: z.object({
         company: z.string(),
         role: z.string(),

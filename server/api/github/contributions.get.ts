@@ -6,16 +6,8 @@ type Calendar = {
 };
 const LEVELS = ["NONE", "FIRST_QUARTILE", "SECOND_QUARTILE", "THIRD_QUARTILE", "FOURTH_QUARTILE"];
 
-export default defineCachedEventHandler(
+const getContributions = defineCachedFunction(
   async () => {
-    if (!useRuntimeConfig().githubToken) {
-      console.warn("[github] NUXT_GITHUB_TOKEN is unset; the contribution graph is hidden.");
-      return {
-        years: [] as number[],
-        total: {} as Record<number, number>,
-        days: [] as [date: string, count: number, level: number][],
-      };
-    }
     const q = (query: string) =>
       github<{
         data: {
@@ -48,5 +40,17 @@ export default defineCachedEventHandler(
     }
     return { years, total, days: days.sort((a, b) => a[0].localeCompare(b[0])) };
   },
-  { maxAge: 60 * 60 },
+  { name: "github-contributions", maxAge: 60 * 60 },
 );
+
+export default defineEventHandler(() => {
+  if (!useRuntimeConfig().githubToken) {
+    console.warn("[github] NUXT_GITHUB_TOKEN is unset; the contribution graph is hidden.");
+    return {
+      years: [] as number[],
+      total: {} as Record<number, number>,
+      days: [] as [date: string, count: number, level: number][],
+    };
+  }
+  return getContributions();
+});

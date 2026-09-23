@@ -23,8 +23,8 @@ async function loadMore() {
   const cursor = prs.value.at(-1)?.created_at;
   const q = `author:${profile.handle} is:pr is:merged is:public -user:${profile.handle}${cursor ? ` created:<${cursor}` : ""}`;
   try {
-    const r = await $fetch<{ items: PR[] }>("https://api.github.com/search/issues", {
-      query: { q, sort: "created", order: "desc", per_page: PAGE },
+    const r = await $fetch<{ items: PR[] }>("/api/github/pull-requests", {
+      query: { q, per_page: PAGE },
     });
     prs.value.push(...r.items);
     done.value = r.items.length < PAGE;
@@ -53,7 +53,7 @@ onMounted(loadMore);
             language models to real product features.
           </p>
           <p>
-            As an intern at DIMORI, I build backend services for Web3 and AI products, including a
+            As an intern at DIMORIlabs, I build backend services for Web3 and AI products, including a
             DeFi platform, an e-learning app with on-chain payments on Polkadot, and an AI support
             agent for Facebook, Zalo, and the web.
           </p>
@@ -72,7 +72,7 @@ onMounted(loadMore);
             <ImageSlot
               :src="profile.photo"
               :alt="`Photo of ${profile.name}`"
-              hint="me.jpg · square, 800×800"
+              hint="images/2giosangmitom.png"
               loading="eager"
               sizes="sm:100vw md:384px"
             />

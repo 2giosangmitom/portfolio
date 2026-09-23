@@ -5,7 +5,7 @@ export const profile = {
   headline: "I build backend systems and AI-powered web applications.",
   summary:
     "Student developer at Hue University of Sciences, focused on backend, microservices, and applied AI.",
-  photo: "",
+  photo: "/images/2giosangmitom.png",
 };
 
 export const socials = [

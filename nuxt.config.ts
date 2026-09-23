@@ -4,6 +4,9 @@ import { readTime } from "./app/utils/readTime.ts";
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
+  runtimeConfig: {
+    githubToken: "",
+  },
   modules: [
     "@nuxt/a11y",
     "@nuxt/content",
@@ -66,22 +69,7 @@ export default defineNuxtConfig({
       markdown: {
         highlight: {
           theme: { default: "github-light-high-contrast", dark: "github-dark-high-contrast" },
-          langs: [
-            "js",
-            "ts",
-            "json",
-            "vue",
-            "css",
-            "html",
-            "bash",
-            "sh",
-            "md",
-            "yaml",
-            "lua",
-            "rust",
-            "python",
-            "sql",
-          ],
+          langs: ["javascript", "typescript", "vue", "lua", "rust", "python", "sql"],
         },
       },
     },
@@ -90,7 +78,7 @@ export default defineNuxtConfig({
   fonts: {
     families: [
       { name: "Tomorrow", weights: [500] },
-      { name: "Public Sans", weights: [400] },
+      { name: "Public Sans", weights: [400, 500] },
     ],
   },
   vite: {

@@ -32,6 +32,7 @@ export default defineContentConfig({
       schema: z.object({
         company: z.string(),
         role: z.string(),
+        description: z.string(),
         url: z.string().optional(),
         logo: z.string().optional(),
         start: z.string(),

@@ -1,20 +1,44 @@
-import { defineContentConfig, defineCollection, z } from '@nuxt/content';
+import { defineCollection, defineContentConfig, z } from "@nuxt/content";
 
 export default defineContentConfig({
   collections: {
-    articles: defineCollection({
-      type: 'page',
-      source: 'articles/*.md',
+    blog: defineCollection({
+      type: "page",
+      source: "blog/*.md",
       schema: z.object({
-        pubDate: z.coerce.date(),
-        updatedDate: z.coerce.date().optional(),
+        date: z.string(),
+        updated: z.string().optional(),
         tags: z.array(z.string()).optional(),
-        draft: z.boolean().optional().default(false)
-      })
+        cover: z.string().optional(),
+        coverAlt: z.string().optional(),
+        readingTime: z.number().optional(),
+      }),
     }),
-    about: defineCollection({
-      type: 'page',
-      source: 'author/about.md'
-    })
-  }
+    projects: defineCollection({
+      type: "page",
+      source: "projects/*.md",
+      schema: z.object({
+        kind: z.enum(["product", "learning"]),
+        repo: z.string().optional(),
+        stack: z.array(z.string()),
+        order: z.number(),
+        url: z.string().optional(),
+        logo: z.string().optional(),
+        cover: z.string().optional(),
+      }),
+    }),
+    experience: defineCollection({
+      type: "data",
+      source: "experience/*.yml",
+      schema: z.object({
+        company: z.string(),
+        role: z.string(),
+        description: z.string(),
+        url: z.string().optional(),
+        logo: z.string().optional(),
+        start: z.string(),
+        end: z.string().optional(),
+      }),
+    }),
+  },
 });

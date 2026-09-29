@@ -1,37 +1,40 @@
 {
-  "name": "2giosangmitom.is-a.dev",
-  "type": "module",
+  "name": "2giosangmitom-github-io",
   "private": true,
-  "version": "3.0.0",
+  "type": "module",
   "scripts": {
-    "dev": "nuxt dev",
     "build": "nuxt build",
+    "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "lint": "eslint ."
+    "format": "oxfmt",
+    "typecheck": "nuxt typecheck"
   },
   "dependencies": {
-    "@nuxt/content": "^3.15.0",
-    "@nuxt/eslint": "^1.16.0",
-    "@nuxt/icon": "^2.3.1",
-    "@nuxt/image": "^2.0.0",
-    "@nuxt/ui": "^4.9.0",
-    "@nuxtjs/robots": "^6.1.2",
-    "@nuxtjs/sitemap": "^8.2.2",
-    "eslint": "^10.6.0",
-    "motion-v": "^2.3.0",
-    "nuxt": "^4.4.8",
-    "overlayscrollbars": "^2.16.0",
-    "tailwindcss": "^4.3.2",
-    "typescript": "^6.0.3",
-    "vue": "^3.5.39",
-    "vue-router": "^5.1.0",
-    "zod": "^4.4.3"
+    "@nuxt/a11y": "1.0.0-alpha.1",
+    "@nuxt/content": "3.16.0",
+    "@nuxt/eslint": "1.17.0",
+    "@nuxt/fonts": "^0.14.0",
+    "@nuxt/hints": "^1.1.4",
+    "@nuxt/icon": "2.5.1",
+    "@nuxt/image": "2.1.0",
+    "@nuxtjs/color-mode": "^4.0.1",
+    "@nuxtjs/seo": "^5.3.16",
+    "@octokit/rest": "^22.0.1",
+    "@tailwindcss/vite": "^4.3.3",
+    "better-sqlite3": "^13.0.3",
+    "motion-v": "^2.4.4",
+    "nuxt": "^4.5.2",
+    "tailwindcss": "^4.3.3",
+    "vue": "^3.5.43"
   },
   "devDependencies": {
-    "@iconify-json/logos": "^1.2.11",
-    "@iconify-json/lucide": "^1.2.116",
-    "@iconify-json/mdi": "^1.2.3"
+    "@iconify-json/lucide": "^1.2.134",
+    "@iconify-json/ph": "^1.2.2",
+    "@iconify-json/simple-icons": "^1.2.96",
+    "oxfmt": "^0.68.0",
+    "typescript": "^6.0.3",
+    "vue-tsc": "^3.3.11"
   }
 }

@@ -1,0 +1,44 @@
+:root {
+  color-scheme: light dark;
+
+  --canvas: light-dark(oklch(98.5% 0.004 285), oklch(19.9% 0.03 283));
+  --surface: light-dark(oklch(96% 0.008 285), oklch(23.8% 0.04 283));
+  --surface-strong: light-dark(oklch(93% 0.012 285), oklch(27% 0.048 283));
+  --line: light-dark(oklch(90% 0.012 285), oklch(30% 0.05 283));
+  --line-strong: light-dark(oklch(82% 0.02 285), oklch(37.3% 0.073 282));
+  --fg: light-dark(oklch(20% 0.03 285), oklch(93.7% 0.015 286));
+  --fg-muted: light-dark(oklch(38% 0.03 285), oklch(83.1% 0.035 286));
+  --fg-subtle: light-dark(oklch(50% 0.03 285), oklch(68% 0.07 283));
+  --accent: light-dark(oklch(52% 0.2 295), oklch(74.2% 0.149 302));
+  --focus: var(--accent);
+}
+:root.light {
+  color-scheme: light;
+}
+:root.dark {
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-*: initial;
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-subtle: var(--fg-subtle);
+  --color-accent: var(--accent);
+  --color-focus: var(--focus);
+  --color-transparent: transparent;
+
+  --font-*: initial;
+  --font-display: "Tomorrow", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Public Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, monospace;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in: cubic-bezier(0.55, 0, 1, 0.45);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}

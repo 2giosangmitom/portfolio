@@ -1,35 +1,18 @@
-<script setup lang="ts">
-const searchTerm = shallowRef('');
-
-const { data: navigation } = await useAsyncData('navigation', () => queryCollectionNavigation('articles'));
-const { data: files } = useLazyAsyncData('search', () => queryCollectionSearchSections('articles'), {
-  server: false
-});
-
-useHead({
-  htmlAttrs: {
-    'data-overlayscrollbars-initialize': ''
-  },
-  bodyAttrs: {
-    'data-overlayscrollbars-initialize': ''
-  }
-});
-</script>
-
 <template>
-  <UApp>
-    <NuxtLoadingIndicator color="var(--ui-primary)" />
-    <ClientOnly>
-      <LazyUContentSearch
-        v-model:search-term="searchTerm"
-        shortcut="meta_/"
-        :fuse="{ resultLimit: 42 }"
-        :navigation="navigation"
-        :files="files"
-      />
-    </ClientOnly>
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
-  </UApp>
+  <MotionConfig reduced-motion="user">
+    <div class="flex min-h-dvh flex-col">
+      <NuxtRouteAnnouncer />
+      <a
+        href="#main"
+        class="sr-only z-50 rounded-md bg-accent px-4 py-2 text-canvas focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+      >
+        Skip to content
+      </a>
+      <AppHeader />
+      <main id="main" class="container-page flex-1">
+        <NuxtPage />
+      </main>
+      <AppFooter />
+    </div>
+  </MotionConfig>
 </template>

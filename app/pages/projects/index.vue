@@ -44,13 +44,10 @@ const kinds = { product: "Product", learning: "Learning project" };
             </span>
             <span class="mt-2 block">{{ p.description }}</span>
             <span class="mt-auto flex flex-wrap items-center gap-2 pt-5 text-xs">
-              <span class="rounded-md border border-line px-2 py-0.5 text-fg">{{
-                kinds[p.kind]
-              }}</span>
-              <span
-                v-if="!p.repo"
-                class="flex items-center gap-1 rounded-md border border-line px-2 py-0.5"
-                ><Icon name="ph:lock-simple" class="size-3" aria-hidden="true" />Closed source</span
+              <UiBadge>{{ kinds[p.kind] }}</UiBadge>
+              <UiBadge v-if="!p.repo"
+                ><Icon name="ph:lock-simple" class="size-3" aria-hidden="true" />Closed
+                source</UiBadge
               >
               <span class="font-mono text-fg-subtle">{{ p.stack.join(", ") }}</span>
             </span>

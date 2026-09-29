@@ -3,6 +3,8 @@ title: "5 mistakes developers make with JavaScript Promises"
 description: "Missing awaits, redundant constructors, swallowed errors, and async executors: why each one bites, and the fix."
 date: "2025-08-12"
 updated: "2026-09-19"
+cover: "/images/blog/js-promise-mistakes.jpg"
+coverAlt: "Five dominoes on a branching path illustrating asynchronous errors and recovery."
 tags: ["programming", "javascript"]
 ---
 

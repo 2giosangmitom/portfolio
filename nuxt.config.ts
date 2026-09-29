@@ -16,28 +16,26 @@ export default defineNuxtConfig({
     "@nuxt/icon",
     "@nuxt/image",
     "@nuxtjs/color-mode",
+    "@nuxtjs/seo",
     "motion-v/nuxt",
   ],
+  site: {
+    url: "https://2giosangmitom.github.io",
+    name: "Vo Quang Chien",
+    description:
+      "Vo Quang Chien, student developer at Hue University of Sciences, focused on backend, embedded systems, and AI.",
+    defaultLocale: "en",
+  },
+  // Social previews use the generated, static cover assets.
+  ogImage: { enabled: false },
+  schemaOrg: {
+    identity: { type: "Person", name: "Vo Quang Chien", image: "/images/2giosangmitom.png" },
+  },
   css: ["~/assets/css/main.css"],
   app: {
     head: {
       htmlAttrs: { lang: "en" },
       title: "Vo Quang Chien",
-      meta: [
-        {
-          name: "description",
-          content:
-            "Vo Quang Chien, student developer at Hue University of Sciences. Backend, microservices, and applied AI.",
-        },
-        { property: "og:site_name", content: "Vo Quang Chien" },
-        { property: "og:type", content: "website" },
-        { property: "og:title", content: "Vo Quang Chien" },
-        {
-          property: "og:description",
-          content:
-            "Vo Quang Chien, student developer at Hue University of Sciences. Backend, microservices, and applied AI.",
-        },
-      ],
       link: [{ rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }],
       noscript: [
         {
@@ -75,10 +73,13 @@ export default defineNuxtConfig({
     },
   },
   image: { quality: 80, format: ["webp"] },
+  // This state appears only after a click, so static hosting must bundle it for the client.
+  icon: { clientBundle: { icons: ["ph:check"] } },
   fonts: {
     families: [
-      { name: "Tomorrow", weights: [500] },
-      { name: "Public Sans", weights: [400, 500] },
+      { name: "Tomorrow", weights: [500, 600] },
+      { name: "Public Sans", weights: [400, 500, 600, 700] },
+      { name: "Geist Mono", weights: [400, 500] },
     ],
   },
   vite: {

@@ -1,9 +1,18 @@
 <script setup lang="ts">
-useHead({ title: "Blog · Vo Quang Chien" });
+const description =
+  "Notes on backend engineering, AI, and the tools I use every day, written as I learn.";
+useSeoMeta({
+  title: "Blog · Vo Quang Chien",
+  description,
+  ogTitle: "Blog · Vo Quang Chien",
+  ogDescription: description,
+  ogType: "website",
+});
+useSchemaOrg([defineWebPage({ "@type": "CollectionPage", description })]);
 const { data: posts } = await useAsyncData("posts", () =>
   queryCollection("blog")
     .order("date", "DESC")
-    .select("path", "title", "description", "date", "cover", "readingTime")
+    .select("path", "title", "description", "date", "cover", "coverAlt", "readingTime")
     .all(),
 );
 </script>
@@ -25,7 +34,7 @@ const { data: posts } = await useAsyncData("posts", () =>
           >
             <ImageSlot
               :src="p.cover"
-              :alt="p.title"
+              :alt="p.coverAlt ?? p.title"
               :hint="`blog/${p.path.split('/').pop()}.png · 1200×630`"
               sizes="sm:100vw md:100vw lg:360px"
             />

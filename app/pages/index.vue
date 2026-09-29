@@ -26,20 +26,24 @@ const { data: posts } = await useAsyncData("home-posts", () =>
     </section>
 
     <section v-reveal aria-labelledby="graph" class="mb-32">
-      <h2 id="graph" class="mb-8 text-3xl font-bold sm:text-4xl">Contribution graph</h2>
+      <SectionHeading id="graph">Contribution graph</SectionHeading>
       <ContributionGraph />
     </section>
 
     <section v-reveal aria-labelledby="work" class="mb-32">
-      <h2 id="work" class="mb-12 text-3xl font-bold sm:text-4xl">Work experience</h2>
+      <SectionHeading id="work">Work experience</SectionHeading>
       <ExperienceList />
     </section>
 
     <section v-if="posts?.length" v-reveal aria-labelledby="writing">
-      <div class="mb-8 flex items-baseline justify-between gap-4">
-        <h2 id="writing" class="text-3xl font-bold sm:text-4xl">Latest writing</h2>
-        <NuxtLink to="/blog" class="link whitespace-nowrap text-sm">All posts</NuxtLink>
-      </div>
+      <SectionHeading id="writing">
+        Latest writing
+        <template #action
+          ><NuxtLink to="/blog" class="link whitespace-nowrap text-sm"
+            >All posts</NuxtLink
+          ></template
+        >
+      </SectionHeading>
       <ul class="divide-y divide-line border-y border-line">
         <li v-for="p in posts" :key="p.path">
           <NuxtLink

@@ -20,6 +20,7 @@
     "@nuxt/icon": "2.5.1",
     "@nuxt/image": "2.1.0",
     "@nuxtjs/color-mode": "^4.0.1",
+    "@nuxtjs/seo": "^5.3.16",
     "@octokit/rest": "^22.0.1",
     "@tailwindcss/vite": "^4.3.3",
     "better-sqlite3": "^13.0.3",

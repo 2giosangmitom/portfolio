@@ -14,27 +14,53 @@ const { data: others } = await useAsyncData(`${path}-others`, () =>
     .select("path", "title", "date")
     .all(),
 );
+const site = useSiteConfig();
+const coverUrl = post.value.cover ? new URL(post.value.cover, site.url).href : undefined;
 useSeoMeta({
   title: `${post.value.title} · Vo Quang Chien`,
   description: post.value.description,
   ogTitle: post.value.title,
   ogDescription: post.value.description,
   ogType: "article",
+  ogImage: coverUrl,
+  ogImageWidth: coverUrl ? 1200 : undefined,
+  ogImageHeight: coverUrl ? 630 : undefined,
+  ogImageType: coverUrl ? "image/jpeg" : undefined,
+  ogImageAlt: post.value.coverAlt ?? post.value.title,
+  twitterCard: "summary_large_image",
+  twitterTitle: post.value.title,
+  twitterDescription: post.value.description,
+  twitterImage: coverUrl,
+  twitterImageAlt: post.value.coverAlt ?? post.value.title,
+  author: profile.name,
+  articlePublishedTime: post.value.date,
+  articleModifiedTime: post.value.updated ?? post.value.date,
+  articleTag: post.value.tags,
 });
+useSchemaOrg([
+  defineWebPage({ description: post.value.description }),
+  defineArticle({
+    "@type": "BlogPosting",
+    headline: post.value.title,
+    description: post.value.description,
+    image: coverUrl,
+    datePublished: post.value.date,
+    dateModified: post.value.updated ?? post.value.date,
+    author: { name: profile.name, url: new URL("/about", site.url).href },
+  }),
+  defineBreadcrumb({
+    itemListElement: [
+      { name: "Home", item: "/" },
+      { name: "Blog", item: "/blog" },
+      { name: post.value.title, item: path },
+    ],
+  }),
+]);
 </script>
 
 <template>
   <div v-if="post">
-    <nav
-      aria-label="Breadcrumb"
-      class="flex items-center gap-2 border-b border-line pb-8 text-sm text-fg-subtle"
-    >
-      <NuxtLink to="/blog" class="border-b border-line whitespace-nowrap hover:text-fg"
-        >cd ..</NuxtLink
-      >
-      <Icon name="ph:caret-right" class="size-3.5 shrink-0" aria-hidden="true" />
-      <span class="truncate">{{ post.title }}</span>
-    </nav>
+    <PageBreadcrumb to="/blog" parent="Blog" :current="post.title" />
 
     <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,3fr)_minmax(0,1fr)]">
       <article class="min-w-0 pt-10 pb-4 lg:border-r lg:border-line lg:pr-8">
@@ -55,7 +81,7 @@ useSeoMeta({
         <div class="aspect-[1200/630] overflow-hidden rounded-xl border border-line">
           <ImageSlot
             :src="post.cover"
-            :alt="post.title"
+            :alt="post.coverAlt ?? post.title"
             :hint="`blog/${path.split('/').pop()}.png · 1200×630`"
             loading="eager"
             sizes="sm:100vw md:100vw lg:900px"
@@ -87,12 +113,8 @@ useSeoMeta({
         <section v-if="post.tags?.length" class="border-b border-line pb-8">
           <h2 class="mb-4 text-xl">Tags</h2>
           <ul class="flex flex-wrap gap-2">
-            <li
-              v-for="t in post.tags"
-              :key="t"
-              class="rounded-md border border-line bg-surface/60 px-2 py-1 text-sm"
-            >
-              {{ t }}
+            <li v-for="t in post.tags" :key="t">
+              <UiBadge>{{ t }}</UiBadge>
             </li>
           </ul>
         </section>

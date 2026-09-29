@@ -1,7 +1,10 @@
 ---
 title: "How I use Neovim as a database client"
-description: "Query PostgreSQL, MySQL, SQLite, Redis, and more without leaving Neovim, using sqmeow.nvim, the plugin I maintain."
+description: "My sqmeow.nvim workflow: connect databases, write SQL in persistent scratchpads, inspect paged results, and review edits without leaving Neovim."
 date: "2026-09-19"
+updated: "2026-09-29"
+cover: "/images/blog/sqmeow-nvim.jpg"
+coverAlt: "A keyboard connected through a terminal to three databases."
 tags: ["neovim", "database", "rust"]
 ---
 
@@ -9,10 +12,14 @@ I spend most of my day in Neovim, so opening a separate app just to run a query 
 
 This post shows how I set it up and use it every day.
 
+::media{src="/images/projects/sqmeow-nvim/overview.png" alt="PostgreSQL schema drawer, SQL scratchpad, and paged results inside Neovim"}
+My database workflow stays alongside the code.
+::
+
 ## Why sqmeow
 
-- **A Rust engine.** Queries run outside the editor, and results come back in pages. A million-row table doesn't freeze Neovim.
-- **Many databases, one workflow.** PostgreSQL, MySQL, SQLite, DuckDB, Redis, MongoDB, ScyllaDB, SurrealDB, and ClickHouse.
+- **A Rust engine.** Queries run outside the editor, and results come back in pages. Paged results keep large queries from blocking the editor.
+- **Many databases, one workflow.** PostgreSQL, MySQL, SQLite, DuckDB, Redis, MongoDB, ScyllaDB, SurrealDB, ClickHouse, and Oracle.
 - **A schema drawer.** Browse schemas, tables, views, and columns with their types and keys.
 - **Edit results in place.** Change cells, add or delete rows, and review the staged changes before they're applied.
 - **Safe by default.** It asks before a `DELETE` without `WHERE`, a `DROP`, or a `TRUNCATE`, and connections can be read-only.
@@ -31,6 +38,7 @@ return {
     require("sqmeow").install()
   end,
   opts = {},
+  cmd = "Sqmeow",
   keys = {
     { "<leader>Dd", "<cmd>Sqmeow toggle<cr>", desc = "Toggle" },
     { "<leader>Da", "<cmd>Sqmeow add<cr>", desc = "Add Connection" },
@@ -64,7 +72,23 @@ A few result-window keys I use constantly:
 | `s`       | Sort by the column under the cursor   |
 | `x`       | Export to CSV, JSON, or SQL `INSERT`s |
 
-Filters and sorts run on the database, so they work on the full table, not just the page you see. Every result is saved in the query log, and `:Sqmeow log` reopens it, even after a restart.
+For SQL, filters and sorts rerun the query on the database, so they work beyond the visible page. MongoDB uses filter/sort documents; Redis, ScyllaDB, SurrealDB, and closed connections filter cached results in memory. Every result is saved in the query log, and `:Sqmeow log` reopens it, even after a restart.
+
+## Review changes before applying them
+
+Press `i` or `<CR>` to edit a cell, `o` to stage a new row, or `dd` to stage a deletion. Use `gs` to open the review window, inspect the generated SQL, then press `<C-s>` there to apply it. `u` undoes the last staged change; `U` discards them all.
+
+A result needs the table's complete primary or unique key for its plain columns to be editable. Joined results can update each table through its own key; adding rows requires a single-table result.
+
+::media{src="/images/projects/sqmeow-nvim/inline-edit.png" alt="Two staged deletions and one cell update with their SQL in the review window"}
+Staged edits remain local until I review and apply them.
+::
+
+Press `gK` in the result window (or `K` on a table in the drawer) to inspect its columns and indexes.
+
+::media{src="/images/projects/sqmeow-nvim/table-structure.png" alt="PostgreSQL table columns, indexes, and CREATE TABLE definition"}
+Inspect the schema before writing the next query.
+::
 
 ## Keep passwords out of your config
 

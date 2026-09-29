@@ -1,32 +1,43 @@
 ---
 title: sqmeow.nvim
-description: Query your database from your favorite editor.
+description: A keyboard-driven database client for Neovim. Browse schemas, query SQL and NoSQL databases, and review in-grid edits through a separate Rust engine.
 kind: product
 repo: 2giosangmitom/sqmeow.nvim
 stack: ["Rust", "Lua", "Neovim"]
+cover: /images/projects/sqmeow-nvim/overview.png
 order: 1
 ---
 
-A database client for Neovim that I build and maintain. A Rust engine runs queries outside the editor and returns results one page at a time, so a large table never freezes Neovim.
+I build and maintain sqmeow.nvim to keep database work inside Neovim. The Lua interface brings together a schema drawer, persistent query scratchpads, and a result grid. A separate Rust process executes queries and returns results in pages, keeping the editor responsive while I work.
 
-::media{alt="sqmeow.nvim: schema drawer, scratchpad, and result window" hint="projects/sqmeow-nvim/overview.gif"}
-The drawer, a scratchpad, and the result window.
+## From a connection to a result
+
+Keep several connections open, browse schemas and tables, then run the statement under the cursor, a visual selection, or an entire buffer. Scratchpads and query history persist across restarts. Query plans from `EXPLAIN` and errors appear alongside results.
+
+The same interface supports PostgreSQL and CockroachDB, MySQL and MariaDB, SQLite, DuckDB, ClickHouse, Redis-compatible servers, MongoDB, ScyllaDB and Cassandra, SurrealDB, and Oracle Database. ClickHouse results are read-only.
+
+::media{src="/images/projects/sqmeow-nvim/table-structure.png" alt="PostgreSQL columns, indexes, and table definition displayed inside Neovim"}
+Inspect types, keys, indexes, and the table definition without opening another tool.
 ::
 
-## Highlights
+## Edit, review, apply
 
-- **Nine databases, one workflow:** PostgreSQL, MySQL, SQLite, DuckDB, ClickHouse, Redis, MongoDB, ScyllaDB, and SurrealDB.
-- **Schema drawer:** browse schemas, tables, views, and columns with their types and keys.
-- **Edit results in place:** change cells, add or delete rows, then review the staged changes before applying them.
-- **Filter and sort on the database:** `WHERE` and `ORDER BY` bars that rerun the query on the whole table.
-- **Query log and exports:** reopen any past result, and export to CSV, JSON, or SQL `INSERT`s.
-- **Safe by default:** confirmations before destructive statements, read-only connections, and secrets read from env vars or commands.
+Edit a cell, stage a new row, or mark rows for deletion in the result grid. Open the review window to inspect the generated SQL before applying changes. Editing requires the source table's full primary or unique key; joined results can update each table through its own key, while adding rows requires a single-table result.
 
-::media{alt="Editing cells and reviewing staged changes" hint="projects/sqmeow-nvim/editing.gif"}
-Edit, review, apply.
+::media{src="/images/projects/sqmeow-nvim/inline-edit.png" alt="Staged deletions and a cell update with generated SQL in the review window"}
+The review window shows exactly which statements will run.
 ::
 
-## Read more
+## Everyday database tools
 
-- [Introducing sqmeow.nvim](/blog/introducing-sqmeow-nvim): a tour of every feature.
-- [How I use Neovim as a database client](/blog/sqmeow-nvim): my setup, step by step.
+- **Filter and sort:** SQL queries rerun on the database; MongoDB uses filter and sort documents. Redis, ScyllaDB, SurrealDB, and closed connections filter cached results in memory.
+- **History and export:** reopen saved results and export to CSV, JSON, or SQL `INSERT` statements, to a file or the clipboard.
+- **Connections and secrets:** use SSH tunnels and read credentials from environment variables, files, or commands. Passwords are masked in displayed URLs.
+- **Destructive-query checks:** confirmations precede operations such as an unqualified `DELETE` or `UPDATE`, `DROP`, and `TRUNCATE`. Read-only connections add protection; for drivers that check commands rather than enforce a database session, use a read-only database account.
+
+## Get started
+
+Requires Neovim 0.10+ and nui.nvim. Install with lazy.nvim, run `:checkhealth sqmeow`, then open `:Sqmeow` and add a connection. The [repository README](https://github.com/2giosangmitom/sqmeow.nvim#readme) contains the installation snippet, supported connection URLs, and keymap reference.
+
+- [Introducing sqmeow.nvim](/blog/introducing-sqmeow-nvim): a closer look at the features.
+- [How I use Neovim as a database client](/blog/sqmeow-nvim): my setup and daily workflow.

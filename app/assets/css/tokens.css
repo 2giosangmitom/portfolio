@@ -10,7 +10,7 @@
   --fg-muted: light-dark(oklch(38% 0.03 285), oklch(83.1% 0.035 286));
   --fg-subtle: light-dark(oklch(50% 0.03 285), oklch(68% 0.07 283));
   --accent: light-dark(oklch(52% 0.2 295), oklch(74.2% 0.149 302));
-  --focus: light-dark(oklch(52% 0.2 295), oklch(81.6% 0.158 169));
+  --focus: var(--accent);
 }
 :root.light {
   color-scheme: light;
@@ -35,7 +35,7 @@
 
   --font-*: initial;
   --font-display: "Tomorrow", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Public Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Geist Mono", ui-monospace, monospace;
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);

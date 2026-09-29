@@ -9,15 +9,20 @@ const props = defineProps<{
 }>();
 
 const copied = ref(false);
+const failed = ref(false);
 let timer: ReturnType<typeof setTimeout> | undefined;
 async function copy() {
+  failed.value = false;
   try {
     await navigator.clipboard.writeText(props.code ?? "");
     copied.value = true;
     clearTimeout(timer);
     timer = setTimeout(() => (copied.value = false), 1500);
-  } catch {}
+  } catch {
+    failed.value = true;
+  }
 }
+onBeforeUnmount(() => clearTimeout(timer));
 </script>
 
 <template>
@@ -25,23 +30,25 @@ async function copy() {
     class="group relative my-6 overflow-hidden rounded-lg border border-line bg-canvas dark:bg-surface"
   >
     <figcaption
-      v-if="filename"
-      class="border-b border-line px-4 py-2 font-mono text-xs text-fg-subtle"
+      class="flex min-h-12 items-center justify-between gap-4 border-b border-line bg-surface/60 px-3 py-1.5"
     >
-      {{ filename }}
+      <span class="min-w-0 truncate font-mono text-xs text-fg-subtle">{{
+        filename || language || "Code"
+      }}</span>
+      <UiButton
+        icon-only
+        :aria-label="copied ? 'Copied' : 'Copy code'"
+        :title="copied ? 'Copied' : 'Copy code'"
+        @click="copy"
+      >
+        <Icon v-if="copied" name="ph:check" class="block size-4 text-accent" aria-hidden="true" />
+        <Icon v-else name="ph:copy" class="block size-4" aria-hidden="true" />
+      </UiButton>
     </figcaption>
-    <button
-      type="button"
-      class="absolute right-2 z-10 grid size-8 place-items-center rounded-md border border-line bg-canvas text-fg-subtle opacity-0 group-hover:opacity-100 hover:text-fg focus-visible:opacity-100 active:translate-y-px"
-      :class="filename ? 'top-10' : 'top-2'"
-      :aria-label="copied ? 'Copied' : 'Copy code'"
-      @click="copy"
-    >
-      <span v-if="copied" class="text-accent"
-        ><Icon name="ph:check" class="block size-4" aria-hidden="true"
-      /></span>
-      <span v-else><Icon name="ph:copy" class="block size-4" aria-hidden="true" /></span>
-    </button>
+    <p v-if="failed" role="status" class="px-4 pt-3 text-sm text-fg-muted">
+      Couldn’t copy. Select the code and copy it manually.
+    </p>
+    <span class="sr-only" role="status">{{ copied ? "Code copied to clipboard" : "" }}</span>
     <pre
       :class="props.class"
       class="overflow-x-auto p-4 font-mono text-sm leading-relaxed"

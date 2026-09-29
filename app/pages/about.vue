@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import { profile, usage } from "~/data";
 
-useHead({ title: "About · Vo Quang Chien" });
+useSeoMeta({
+  title: "About · Vo Quang Chien",
+  description: profile.summary,
+  ogTitle: "About · Vo Quang Chien",
+  ogDescription: profile.summary,
+});
 
 type PR = {
   html_url: string;
@@ -44,22 +49,24 @@ onMounted(loadMore);
     >
       <div class="order-2 lg:order-none">
         <h1 v-reveal class="mb-8 text-4xl leading-tight sm:text-5xl sm:leading-[1.15]">
-          I'm Chien, a student developer building backend systems and AI features for the web.
+          Hi, I'm Chien.
         </h1>
         <div v-reveal="rise(0.08)" class="space-y-4 text-lg leading-relaxed">
           <p>
-            I study at {{ profile.school }} in Viet Nam. Most of my work happens on the server: I
-            design APIs, split systems into services that deploy and scale on their own, and connect
-            language models to real product features.
+            Currently hacking on backend services, embedded systems, and AI. I’m interested in how
+            things work behind the scenes, from APIs and databases to the software that interacts
+            with hardware. I learn by building projects and working through the details along the
+            way.
           </p>
           <p>
-            As an intern at DIMORIlabs, I build backend services for Web3 and AI products, including a
-            DeFi platform, an e-learning app with on-chain payments on Polkadot, and an AI support
-            agent for Facebook, Zalo, and the web.
+            I also build Neovim tools like
+            <NuxtLink to="/projects/sqmeow-nvim" class="link">sqmeow.nvim</NuxtLink> and
+            <NuxtLink to="/projects/nightfall-nvim" class="link">nightfall.nvim</NuxtLink>, and
+            contribute fixes to the open source tools I use.
           </p>
           <p>
-            I write code in Neovim on Arch Linux, and when a tool I depend on is missing something,
-            I contribute the fix upstream. In my free time, I am learning game development.
+            Most of my coding happens in Neovim on Arch Linux. This site is where I share what I’m
+            building, the tools I use, and notes from things I’m learning.
           </p>
         </div>
       </div>
@@ -83,7 +90,7 @@ onMounted(loadMore);
     </section>
 
     <section v-reveal aria-labelledby="usage" class="mt-32 max-w-3xl">
-      <h2 id="usage" class="mb-4 text-3xl font-bold sm:text-4xl">Tech stack</h2>
+      <SectionHeading id="usage">Tech stack</SectionHeading>
       <p class="mb-8">
         What I use to design, build, and ship: TypeScript most days, Python for AI work, and Rust
         when speed matters.
@@ -92,22 +99,18 @@ onMounted(loadMore);
         <div v-for="u in usage" :key="u.group">
           <dt class="font-display font-semibold text-fg">{{ u.group }}</dt>
           <dd class="mt-2 flex flex-wrap gap-2">
-            <span
-              v-for="i in u.items"
-              :key="i.name"
-              class="flex items-center gap-1.5 rounded-md border border-line bg-surface/60 px-2 py-1 text-sm"
-            >
+            <UiBadge v-for="i in u.items" :key="i.name">
               <Icon :name="i.icon" class="size-3.5" :class="i.color" aria-hidden="true" />{{
                 i.name
               }}
-            </span>
+            </UiBadge>
           </dd>
         </div>
       </dl>
     </section>
 
     <section v-reveal aria-labelledby="upstream" class="mt-32 max-w-3xl">
-      <h2 id="upstream" class="mb-4 text-3xl font-bold sm:text-4xl">Open source contributions</h2>
+      <SectionHeading id="upstream">Open source contributions</SectionHeading>
       <p class="mb-8">Merged pull requests to public projects I use and care about.</p>
       <ul v-if="prs.length" class="divide-y divide-line border-y border-line">
         <li v-for="c in prs" :key="c.html_url">
@@ -128,9 +131,9 @@ onMounted(loadMore);
           requests…</span
         >
         <span v-else-if="failed" class="text-fg-subtle">Couldn't reach GitHub right now.</span>
-        <button v-if="!loading && (failed || !done)" type="button" class="link" @click="loadMore">
+        <UiButton v-if="!loading && (failed || !done)" variant="link" @click="loadMore">
           {{ failed ? "Try again" : "Load more" }}
-        </button>
+        </UiButton>
         <a :href="searchUrl" class="link">View all on GitHub</a>
       </p>
     </section>

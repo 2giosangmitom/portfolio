@@ -2,9 +2,9 @@ export const profile = {
   name: "Vo Quang Chien",
   handle: "2giosangmitom",
   school: "Hue University of Sciences",
-  headline: "I build backend systems and AI-powered web applications.",
+  headline: "Focused on backend, embedded systems, and AI.",
   summary:
-    "Student developer at Hue University of Sciences, focused on backend, microservices, and applied AI.",
+    "I'm Chien, a student developer at Hue University of Sciences. I build backend services and explore embedded systems and practical applications of AI.",
   photo: "/images/2giosangmitom.png",
 };
 
@@ -26,6 +26,7 @@ export const usage = [
       { name: "TypeScript", icon: "simple-icons:typescript", color: "text-[#3178C6]" },
       { name: "Python", icon: "simple-icons:python", color: "text-[#3776AB]" },
       { name: "Rust", icon: "simple-icons:rust", color: "text-fg" },
+      { name: "Effect", icon: "simple-icons:effect", color: "text-fg" },
     ],
   },
   {

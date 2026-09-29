@@ -3,7 +3,11 @@ import { animate, stagger } from "motion-v";
 
 type Day = [date: string, count: number, level: number];
 
-const { data } = await useFetch("/api/github/contributions", { key: "contributions" });
+const { data, refresh } = await useFetch("/api/github/contributions", { key: "contributions" });
+
+onMounted(() => {
+  if (!data.value?.days.length) refresh();
+});
 
 const year = ref<number>();
 const today = new Date().toISOString().slice(0, 10);
@@ -99,22 +103,16 @@ const shade = ["bg-surface-strong", "bg-accent/30", "bg-accent/55", "bg-accent/8
       role="group"
       aria-label="Contribution year"
     >
-      <button
+      <UiButton
         v-for="y in data.years"
         :key="y"
-        type="button"
         :aria-pressed="year === y"
-        class="rounded-lg border px-4 py-2 font-display text-sm font-medium"
-        :class="
-          year === y
-            ? 'border-transparent bg-accent text-canvas'
-            : 'border-line bg-surface/60 text-fg hover:border-line-strong'
-        "
+        :variant="year === y ? 'primary' : 'secondary'"
         :title="`View contributions in ${y}`"
         @click="year = year === y ? undefined : y"
       >
         {{ y }}
-      </button>
+      </UiButton>
     </div>
   </div>
 </template>

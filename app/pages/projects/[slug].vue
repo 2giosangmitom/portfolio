@@ -19,14 +19,13 @@ const live = computed(() => project.value?.url ?? stats.value?.homepage);
 
 <template>
   <article v-if="project" v-reveal class="mx-auto max-w-3xl">
-    <nav aria-label="Breadcrumb" class="mb-8 flex items-center gap-2 text-sm text-fg-subtle">
-      <NuxtLink to="/projects" class="border-b border-line hover:text-fg">cd ..</NuxtLink>
-      <Icon name="ph:caret-right" class="size-3.5" aria-hidden="true" />
-      <span class="truncate">{{ project.title }}</span>
-    </nav>
+    <PageBreadcrumb to="/projects" parent="Projects" :current="project.title" />
     <div class="mb-6 flex flex-wrap items-start justify-between gap-4">
-      <div class="flex items-center gap-4">
-        <span class="block size-14 shrink-0 overflow-hidden rounded-lg border border-line">
+      <div class="flex min-w-0 items-center gap-4">
+        <span
+          v-if="project.logo"
+          class="block size-14 shrink-0 overflow-hidden rounded-lg border border-line"
+        >
           <ImageSlot
             :src="project.logo"
             :alt="`${project.title} logo`"
@@ -34,37 +33,35 @@ const live = computed(() => project.value?.url ?? stats.value?.homepage);
             sizes="56px"
           />
         </span>
-        <h1 class="text-4xl sm:text-5xl">{{ project.title }}</h1>
+        <h1 class="min-w-0 text-3xl sm:text-5xl">{{ project.title }}</h1>
       </div>
       <div class="flex items-center gap-2">
-        <a v-if="live" :href="live" class="surface-link flex items-center gap-2 px-4 py-2 text-fg">
+        <UiButton v-if="live" :to="live">
           <Icon name="ph:arrow-square-out" class="size-4" aria-hidden="true" />Live
-        </a>
-        <a
-          v-if="project.repo"
-          :href="`https://github.com/${project.repo}`"
-          class="surface-link flex items-center gap-2 px-4 py-2 text-fg"
-        >
+        </UiButton>
+        <UiButton v-if="project.repo" :to="`https://github.com/${project.repo}`">
           <Icon name="simple-icons:github" class="size-4" aria-hidden="true" />GitHub
           <span
             v-if="stats?.stars"
             class="flex items-center gap-1 font-mono text-xs text-fg-subtle tabular-nums"
             ><Icon name="ph:star" class="size-3" aria-hidden="true" />{{ stats.stars }}</span
           >
-        </a>
-        <span v-else class="flex items-center gap-2 rounded-lg border border-line px-4 py-2 text-sm"
-          ><Icon name="ph:lock-simple" class="size-4" aria-hidden="true" />Closed source</span
+        </UiButton>
+        <UiBadge v-else
+          ><Icon name="ph:lock-simple" class="size-4" aria-hidden="true" />Closed source</UiBadge
         >
       </div>
     </div>
     <p class="text-lg">{{ project.description }}</p>
     <p class="eyebrow-date mt-3">{{ project.stack.join(", ") }}</p>
-    <div class="mt-8 aspect-[1200/630] overflow-hidden rounded-xl border border-line">
-      <ImageSlot
+    <div class="mt-8 overflow-hidden rounded-lg border border-line bg-surface">
+      <NuxtImg
+        v-if="project.cover"
+        class="h-auto w-full"
         :src="project.cover"
         :alt="`${project.title} screenshot`"
-        :hint="`projects${path.slice(9)}/cover.png, 1200x630`"
         loading="eager"
+        :preload="{ fetchPriority: 'high' }"
         sizes="sm:100vw md:768px"
       />
     </div>

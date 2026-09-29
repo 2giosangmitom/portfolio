@@ -25,13 +25,13 @@ const rays = [
 </script>
 
 <template>
-  <button
-    type="button"
+  <UiButton
+    icon-only
     title="Toggle theme"
     aria-label="Toggle theme"
     :aria-pressed="toggled"
     :class="toggled === true ? 'dark' : toggled === false ? 'light' : undefined"
-    class="grid size-9 place-items-center rounded-full border border-line bg-surface/60 text-lg text-fg hover:border-line-strong hover:text-accent active:translate-y-px"
+    class="rounded-full text-lg"
     @click="toggle"
   >
     <svg
@@ -71,5 +71,5 @@ const rays = [
         />
       </g>
     </svg>
-  </button>
+  </UiButton>
 </template>

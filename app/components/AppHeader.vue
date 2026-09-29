@@ -36,7 +36,7 @@ watch(
         <ThemeToggle />
         <details ref="menu" class="group relative md:hidden">
           <summary
-            class="grid size-9 cursor-pointer list-none place-items-center rounded-md border border-line bg-surface/60 text-fg [&::-webkit-details-marker]:hidden"
+            class="ui-control ui-control--secondary size-9 list-none p-0 [&::-webkit-details-marker]:hidden"
             aria-label="Menu"
           >
             <span class="group-open:hidden"

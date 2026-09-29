@@ -20,12 +20,8 @@ useHead({ title: notFound.value ? "Page not found · Vo Quang Chien" : "Error ·
             {{ notFound ? "The link may be old, or the post was removed." : error.message }}
           </p>
           <p class="mt-8 flex flex-wrap gap-x-6 gap-y-2">
-            <button type="button" class="link" @click="clearError({ redirect: '/' })">
-              Go home
-            </button>
-            <button type="button" class="link" @click="clearError({ redirect: '/blog' })">
-              Read the blog
-            </button>
+            <UiButton @click="clearError({ redirect: '/' })"> Go home </UiButton>
+            <UiButton @click="clearError({ redirect: '/blog' })"> Read the blog </UiButton>
           </p>
         </div>
         <AppLogo class="hidden size-48 opacity-40 md:block" />

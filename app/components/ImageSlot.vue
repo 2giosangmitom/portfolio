@@ -5,9 +5,16 @@ const props = defineProps<{
   hint: string;
   sizes?: string;
   loading?: "lazy" | "eager";
+  /** "cover" fills a fixed-size wrapper (avatars, logos); "natural" keeps original ratio. */
+  fit?: "cover" | "natural";
 }>();
 const dev = import.meta.dev;
 const eager = computed(() => props.loading === "eager");
+const imgClass = computed(() =>
+  props.fit === "cover"
+    ? "size-full object-cover transition-[filter] duration-500"
+    : "h-auto w-full transition-[filter] duration-500",
+);
 </script>
 
 <template>
@@ -16,13 +23,14 @@ const eager = computed(() => props.loading === "eager");
     :src="src"
     :alt="alt"
     :sizes="sizes ?? 'sm:100vw md:50vw xl:50vw'"
+    densities="x1 x2"
     :format="imageFormat(src)"
     :loading="loading ?? 'lazy'"
     :preload="eager ? { fetchPriority: 'high' } : undefined"
     :fetchpriority="eager ? 'high' : undefined"
     placeholder
     placeholder-class="blur-xl"
-    class="size-full object-cover transition-[filter] duration-500"
+    :class="imgClass"
   />
   <span
     v-else

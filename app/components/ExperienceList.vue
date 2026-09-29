@@ -22,13 +22,16 @@ const { data: jobs } = await useAsyncData("experience", () =>
           :alt="`${job.company} logo`"
           :hint="`images/experience/${job.company.toLowerCase()}.jpg`"
           sizes="sm:80px 64px"
+          fit="cover"
         />
       </component>
       <div class="min-w-0 self-center">
         <h3 class="text-xl sm:text-2xl">{{ job.company }}</h3>
         <p class="mt-1 text-fg">{{ job.role }}</p>
       </div>
-      <p class="eyebrow-date col-start-2 self-center lg:col-start-3 lg:row-start-1 lg:justify-self-end">
+      <p
+        class="eyebrow-date col-start-2 self-center lg:col-start-3 lg:row-start-1 lg:justify-self-end"
+      >
         <time :datetime="job.start">{{ formatMonth(job.start) }}</time> -
         <time v-if="job.end" :datetime="job.end">{{ formatMonth(job.end) }}</time>
         <span v-else class="text-accent">Present</span>

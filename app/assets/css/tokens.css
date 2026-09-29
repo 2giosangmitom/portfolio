@@ -32,6 +32,7 @@
   --color-accent: var(--accent);
   --color-focus: var(--focus);
   --color-transparent: transparent;
+  --color-black: #000;
 
   --font-*: initial;
   --font-display: "Tomorrow", ui-sans-serif, system-ui, sans-serif;

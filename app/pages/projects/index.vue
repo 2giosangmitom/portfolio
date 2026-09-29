@@ -19,7 +19,7 @@ const kinds = { product: "Product", learning: "Learning project" };
     <ul class="grid grid-cols-1 gap-5 md:grid-cols-2">
       <li v-for="(p, i) in projects" :key="p.path" v-reveal="rise(0.06 * i)">
         <NuxtLink :to="p.path" class="surface-link group flex h-full flex-col overflow-hidden">
-          <span class="block aspect-[1200/630] overflow-hidden border-b border-line">
+          <span class="block overflow-hidden border-b border-line">
             <ImageSlot
               :src="p.cover"
               :alt="`${p.title} screenshot`"

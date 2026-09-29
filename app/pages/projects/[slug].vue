@@ -31,6 +31,7 @@ const live = computed(() => project.value?.url ?? stats.value?.homepage);
             :alt="`${project.title} logo`"
             :hint="`projects${path.slice(9)}/logo.png`"
             sizes="56px"
+            fit="cover"
           />
         </span>
         <h1 class="min-w-0 text-3xl sm:text-5xl">{{ project.title }}</h1>
@@ -55,15 +56,17 @@ const live = computed(() => project.value?.url ?? stats.value?.homepage);
     <p class="text-lg">{{ project.description }}</p>
     <p class="eyebrow-date mt-3">{{ project.stack.join(", ") }}</p>
     <div class="mt-8 overflow-hidden rounded-lg border border-line bg-surface">
-      <NuxtImg
-        v-if="project.cover"
-        class="h-auto w-full"
-        :src="project.cover"
-        :alt="`${project.title} screenshot`"
-        loading="eager"
-        :preload="{ fetchPriority: 'high' }"
-        sizes="sm:100vw md:768px"
-      />
+      <ZoomableImage v-if="project.cover" :src="project.cover" :alt="`${project.title} screenshot`">
+        <NuxtImg
+          class="h-auto w-full"
+          :src="project.cover"
+          :alt="`${project.title} screenshot`"
+          loading="eager"
+          :preload="{ fetchPriority: 'high' }"
+          densities="x1 x2"
+          sizes="sm:100vw md:768px"
+        />
+      </ZoomableImage>
     </div>
     <ContentRenderer :value="project" class="mt-10 text-[1.0625rem]" />
   </article>

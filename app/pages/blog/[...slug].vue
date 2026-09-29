@@ -78,14 +78,16 @@ useSchemaOrg([
           >
         </p>
         <PageHeading :title="post.title" :description="post.description" />
-        <div class="aspect-[1200/630] overflow-hidden rounded-xl border border-line">
-          <ImageSlot
-            :src="post.cover"
-            :alt="post.coverAlt ?? post.title"
-            :hint="`blog/${path.split('/').pop()}.png · 1200×630`"
-            loading="eager"
-            sizes="sm:100vw md:100vw lg:900px"
-          />
+        <div class="overflow-hidden rounded-xl border border-line">
+          <ZoomableImage v-if="post.cover" :src="post.cover" :alt="post.coverAlt ?? post.title">
+            <ImageSlot
+              :src="post.cover"
+              :alt="post.coverAlt ?? post.title"
+              :hint="`blog/${path.split('/').pop()}.png · 1200×630`"
+              loading="eager"
+              sizes="sm:100vw md:100vw lg:900px"
+            />
+          </ZoomableImage>
         </div>
         <ContentRenderer :value="post" class="mt-10 text-[1.0625rem]" />
       </article>
@@ -95,7 +97,13 @@ useSchemaOrg([
           <p class="text-sm text-fg-subtle">Written by</p>
           <address class="mt-4 flex items-center gap-3 not-italic">
             <span class="block size-12 shrink-0 overflow-hidden rounded-full border border-line">
-              <ImageSlot :src="profile.photo" :alt="profile.name" hint="me.jpg" sizes="48px" />
+              <ImageSlot
+                :src="profile.photo"
+                :alt="profile.name"
+                hint="me.jpg"
+                sizes="48px"
+                fit="cover"
+              />
             </span>
             <span>
               <NuxtLink

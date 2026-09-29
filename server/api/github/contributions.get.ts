@@ -8,31 +8,29 @@ const LEVELS = ["NONE", "FIRST_QUARTILE", "SECOND_QUARTILE", "THIRD_QUARTILE", "
 
 const getContributions = defineCachedFunction(
   async () => {
-    const q = (query: string) =>
-      github<{
-        data: {
-          user: Record<string, Calendar> & {
-            contributionsCollection: { contributionYears: number[] };
-          };
-        };
-      }>("/graphql", { query, variables: { login: profile.handle } });
+    const octokit = useGitHub();
 
-    const { data: first } = await q(
+    const yearsData = await octokit.graphql<{
+      user: { contributionsCollection: { contributionYears: number[] } };
+    }>(
       `query($login: String!) { user(login: $login) { contributionsCollection { contributionYears } } }`,
+      { login: profile.handle },
     );
-    const years = first.user.contributionsCollection.contributionYears.slice(0, 5);
+    const years = yearsData.user.contributionsCollection.contributionYears.slice(0, 5);
     const fields = years.map(
       (y) =>
         `y${y}: contributionsCollection(from: "${y}-01-01T00:00:00Z", to: "${y}-12-31T23:59:59Z") { contributionCalendar { totalContributions weeks { contributionDays { date contributionCount contributionLevel } } } }`,
     );
-    const { data } = await q(
-      `query($login: String!) { user(login: $login) { ${fields.join(" ")} } }`,
-    );
+    const { user } = await octokit.graphql<{
+      user: Record<string, Calendar>;
+    }>(`query($login: String!) { user(login: $login) { ${fields.join(" ")} } }`, {
+      login: profile.handle,
+    });
 
     const total: Record<number, number> = {};
     const days: [date: string, count: number, level: number][] = [];
     for (const y of years) {
-      const cal = data.user[`y${y}`]!.contributionCalendar;
+      const cal = user[`y${y}`]!.contributionCalendar;
       total[y] = cal.totalContributions;
       for (const w of cal.weeks)
         for (const d of w.contributionDays)
@@ -45,7 +43,7 @@ const getContributions = defineCachedFunction(
 
 export default defineEventHandler(() => {
   if (!useRuntimeConfig().githubToken) {
-    console.warn("[github] NUXT_GITHUB_TOKEN is unset; the contribution graph is hidden.");
+    console.warn("[github] GITHUB_TOKEN is unset; the contribution graph is hidden.");
     return {
       years: [] as number[],
       total: {} as Record<number, number>,

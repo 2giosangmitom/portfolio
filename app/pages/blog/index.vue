@@ -29,9 +29,7 @@ const { data: posts } = await useAsyncData("posts", () =>
           :to="p.path"
           class="surface-link group flex flex-col items-start gap-6 p-5 lg:flex-row lg:items-center"
         >
-          <span
-            class="block aspect-[1200/630] w-full shrink-0 overflow-hidden rounded-md lg:w-[360px]"
-          >
+          <span class="block w-full shrink-0 overflow-hidden rounded-md lg:w-[360px]">
             <ImageSlot
               :src="p.cover"
               :alt="p.coverAlt ?? p.title"

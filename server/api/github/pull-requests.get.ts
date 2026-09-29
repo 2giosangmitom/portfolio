@@ -6,14 +6,14 @@ type PullRequest = {
   pull_request: { merged_at: string };
 };
 
-export default defineEventHandler((event) => {
+export default defineEventHandler(async (event) => {
   const query = getQuery(event);
-  const params = new URLSearchParams({
+  const { data } = await useGitHub().rest.search.issuesAndPullRequests({
     q: String(query.q || ""),
     sort: "created",
     order: "desc",
-    per_page: String(query.per_page || 10),
+    per_page: Number(query.per_page) || 10,
   });
 
-  return github<{ items: PullRequest[] }>(`/search/issues?${params}`);
+  return { items: data.items as PullRequest[] };
 });

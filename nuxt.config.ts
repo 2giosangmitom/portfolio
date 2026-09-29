@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
   runtimeConfig: {
-    githubToken: "",
+    githubToken: process.env.GITHUB_TOKEN ?? "",
   },
   modules: [
     "@nuxt/a11y",
@@ -72,7 +72,12 @@ export default defineNuxtConfig({
       },
     },
   },
-  image: { quality: 80, format: ["webp"] },
+  image: {
+    quality: 85,
+    format: ["webp"],
+    // Serve 2x variants so retina displays don't get a soft 1x upscale.
+    densities: [1, 2],
+  },
   // This state appears only after a click, so static hosting must bundle it for the client.
   icon: { clientBundle: { icons: ["ph:check"] } },
   fonts: {

@@ -81,6 +81,7 @@ onMounted(loadMore);
               :alt="`Photo of ${profile.name}`"
               hint="images/2giosangmitom.png"
               loading="eager"
+              fit="cover"
               sizes="sm:100vw md:384px"
             />
           </div>

@@ -21,15 +21,17 @@ onMounted(() => {
       controls
       class="w-full rounded-lg border border-line bg-surface"
     />
-    <LazyNuxtImg
-      v-else-if="src"
-      :src="src"
-      :alt="alt"
-      :format="imageFormat(src)"
-      loading="lazy"
-      sizes="sm:100vw md:768px"
-      class="w-full rounded-lg border border-line bg-surface"
-    />
+    <ZoomableImage v-else-if="src" :src="src" :alt="alt">
+      <LazyNuxtImg
+        :src="src"
+        :alt="alt"
+        :format="imageFormat(src)"
+        loading="lazy"
+        densities="x1 x2"
+        sizes="sm:100vw md:768px"
+        class="w-full rounded-lg border border-line bg-surface"
+      />
+    </ZoomableImage>
     <div
       v-else
       class="aspect-video overflow-hidden rounded-lg border border-dashed border-line-strong"

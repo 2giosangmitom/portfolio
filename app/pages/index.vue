@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { profile } from "~/data";
+import { profile, socials } from "~/data";
 
 const { data: posts } = await useAsyncData("home-posts", () =>
   queryCollection("blog")
@@ -8,6 +8,7 @@ const { data: posts } = await useAsyncData("home-posts", () =>
     .select("path", "title", "description", "date")
     .all(),
 );
+const email = socials.find((s) => s.name === "Email")?.url;
 </script>
 
 <template>
@@ -20,24 +21,23 @@ const { data: posts } = await useAsyncData("home-posts", () =>
           {{ profile.headline }}
         </h1>
         <p v-reveal="rise(0.08)" class="text-lg leading-relaxed">{{ profile.summary }}</p>
+        <div v-reveal="rise(0.12)" class="mt-8 flex flex-wrap gap-3">
+          <UiButton to="/projects" variant="primary">View projects</UiButton>
+          <UiButton to="/blog">Read the blog</UiButton>
+        </div>
         <SocialLinks v-reveal="rise(0.16)" class="mt-10" />
       </div>
       <HeroArt v-reveal="rise(0.1)" class="self-center" />
     </section>
 
-    <section v-reveal aria-labelledby="graph" class="mb-32">
-      <SectionHeading id="graph">Contribution graph</SectionHeading>
+    <section v-reveal aria-labelledby="activity" class="mb-32">
+      <SectionHeading id="activity">GitHub activity</SectionHeading>
       <ContributionGraph />
     </section>
 
-    <section v-reveal aria-labelledby="work" class="mb-32">
-      <SectionHeading id="work">Work experience</SectionHeading>
-      <ExperienceList />
-    </section>
-
-    <section v-if="posts?.length" v-reveal aria-labelledby="writing">
+    <section v-if="posts?.length" v-reveal aria-labelledby="writing" class="mb-32">
       <SectionHeading id="writing">
-        Latest writing
+        Writing
         <template #action
           ><NuxtLink to="/blog" class="link whitespace-nowrap text-sm"
             >All posts</NuxtLink
@@ -63,6 +63,17 @@ const { data: posts } = await useAsyncData("home-posts", () =>
           </NuxtLink>
         </li>
       </ul>
+    </section>
+
+    <section v-reveal aria-labelledby="contact" class="mb-8 max-w-2xl">
+      <SectionHeading id="contact">Get in touch</SectionHeading>
+      <p class="mb-8 text-lg leading-relaxed">
+        Have something to build, or want to talk backend and AI? My inbox is open.
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <UiButton v-if="email" :to="email" variant="primary">Email me</UiButton>
+        <UiButton to="/about">More about me</UiButton>
+      </div>
     </section>
   </div>
 </template>

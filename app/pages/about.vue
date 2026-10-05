@@ -89,6 +89,11 @@ onMounted(loadMore);
       </aside>
     </section>
 
+    <section v-reveal aria-labelledby="experience" class="mt-32 max-w-3xl">
+      <SectionHeading id="experience">Experience</SectionHeading>
+      <ExperienceList />
+    </section>
+
     <section v-reveal aria-labelledby="usage" class="mt-32 max-w-3xl">
       <SectionHeading id="usage">Tech stack</SectionHeading>
       <p class="mb-8">

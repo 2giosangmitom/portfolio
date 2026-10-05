@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { socials } from "~/data";
+
 const links = [
   { to: "/about", label: "About" },
   { to: "/projects", label: "Projects" },
@@ -71,7 +73,10 @@ onUnmounted(() => {
   <Teleport to="body">
     <Transition name="menu">
       <div v-if="open" class="fixed inset-0 z-40 md:hidden">
-        <div class="menu-overlay absolute inset-0 bg-black/50" @click="open = false" />
+        <div
+          class="menu-overlay absolute inset-0 bg-black/60 backdrop-blur-sm"
+          @click="open = false"
+        />
         <aside
           id="mobile-menu"
           ref="panel"
@@ -79,7 +84,7 @@ onUnmounted(() => {
           aria-modal="true"
           aria-label="Menu"
           tabindex="-1"
-          class="menu-panel absolute top-0 right-0 flex h-full w-72 max-w-[80vw] flex-col border-l border-line bg-canvas p-4 outline-none"
+          class="menu-panel absolute top-0 right-0 flex h-full w-80 max-w-[85vw] flex-col border-l border-line bg-canvas p-6 outline-none"
         >
           <div class="flex items-center justify-between">
             <span class="font-display text-lg font-semibold text-fg">Menu</span>
@@ -87,20 +92,30 @@ onUnmounted(() => {
               <Icon name="ph:x" class="block size-4" aria-hidden="true" />
             </UiButton>
           </div>
-          <nav aria-label="Mobile" class="mt-4">
+          <nav aria-label="Mobile" class="mt-6">
             <ul class="space-y-1">
               <li v-for="l in links" :key="l.to">
                 <NuxtLink
                   :to="l.to"
-                  class="block rounded-md px-3 py-3 font-medium text-fg hover:bg-surface-strong"
+                  class="block rounded-md py-3 text-lg font-medium text-fg hover:text-accent"
                   active-class="!text-accent"
                   >{{ l.label }}</NuxtLink
                 >
               </li>
             </ul>
           </nav>
-          <div class="mt-auto border-t border-line pt-4">
-            <SocialLinks />
+          <div class="mt-auto border-t border-line pt-5">
+            <ul class="flex items-center gap-5">
+              <li v-for="s in socials" :key="s.name">
+                <a
+                  :href="s.url"
+                  :aria-label="s.name"
+                  class="block text-fg-subtle transition-colors hover:text-fg"
+                >
+                  <Icon :name="s.icon" class="block size-5" aria-hidden="true" />
+                </a>
+              </li>
+            </ul>
           </div>
         </aside>
       </div>

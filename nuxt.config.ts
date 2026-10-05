@@ -23,7 +23,7 @@ export default defineNuxtConfig({
     url: "https://2giosangmitom.github.io",
     name: "Vo Quang Chien",
     description:
-      "Vo Quang Chien is a student developer at Hue University of Sciences. He focuses on backend and AI, and builds games for fun.",
+      "Vo Quang Chien builds backend systems and AI apps. Maintainer of sqmeow.nvim; builds games for fun.",
     defaultLocale: "en",
   },
   // Social previews use the generated, static cover assets.

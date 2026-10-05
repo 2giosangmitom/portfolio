@@ -1,10 +1,9 @@
 export const profile = {
   name: "Vo Quang Chien",
   handle: "2giosangmitom",
-  school: "Hue University of Sciences",
-  headline: "Backend, AI, and games for fun.",
+  headline: "I build backend systems and AI apps.",
   summary:
-    "I'm Chien, a student developer at Hue University of Sciences. I focus on backend and AI, and I build games for fun.",
+    "I'm Chien. I maintain sqmeow.nvim, a database client for Neovim, and I build games for fun.",
   photo: "/images/2giosangmitom.png",
 };
 

@@ -3,7 +3,7 @@ useHead({ title: "Projects · Vo Quang Chien" });
 const { data: projects } = await useAsyncData("projects", () =>
   queryCollection("projects")
     .order("order", "ASC")
-    .select("path", "title", "description", "cover", "repo", "stack", "kind")
+    .select("path", "title", "description", "repo", "stack", "kind")
     .all(),
 );
 const { data: repos } = await useRepos();
@@ -14,19 +14,16 @@ const kinds = { product: "Product", learning: "Learning project" };
   <div>
     <PageHeading
       title="Projects"
-      description="Products I have shipped and projects I build to learn. Open source ones link to their code on GitHub."
+      description="Backend and AI work I have shipped, plus games I build for fun. Open source ones link to their code on GitHub."
     />
     <ul class="grid grid-cols-1 gap-5 md:grid-cols-2">
-      <li v-for="(p, i) in projects" :key="p.path" v-reveal="rise(0.06 * i)">
-        <NuxtLink :to="p.path" class="surface-link group flex h-full flex-col overflow-hidden">
-          <span class="block overflow-hidden border-b border-line">
-            <ImageSlot
-              :src="p.cover"
-              :alt="`${p.title} screenshot`"
-              :hint="`projects${p.path.slice(9)}/cover.png, 1200x630`"
-              sizes="sm:100vw md:50vw xl:50vw"
-            />
-          </span>
+      <li
+        v-for="(p, i) in projects"
+        :key="p.path"
+        v-reveal="rise(0.06 * i)"
+        class="[content-visibility:auto] [contain-intrinsic-size:auto_320px]"
+      >
+        <NuxtLink :to="p.path" class="surface-link group flex h-full flex-col">
           <span class="flex flex-1 flex-col p-5">
             <span class="flex items-baseline justify-between gap-4">
               <span

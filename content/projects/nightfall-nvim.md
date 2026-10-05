@@ -1,16 +1,15 @@
 ---
 title: nightfall.nvim
-description: A clean, eye-friendly colorscheme for Neovim, in three flavors.
+description: A Dracula-inspired colorscheme for Neovim, in four flavors.
 kind: product
 repo: 2giosangmitom/nightfall.nvim
 stack: ["Lua", "Neovim"]
 order: 2
-cover: /images/projects/nightfall-nvim/nightfall.png
 ---
 
-A violet-leaning take on the Dracula family, made for long sessions. It covers every highlight group Neovim documents through 0.12 and every Treesitter capture, so no language falls back to a default color. This site uses its palette for dark mode.
+A Dracula-inspired colorscheme for Neovim, made for long sessions. This site uses its palette for dark mode.
 
-## Three flavors
+## Flavors
 
 ::media{src="/images/projects/nightfall-nvim/nightfall.png" alt="The nightfall flavor"}
 nightfall
@@ -24,16 +23,20 @@ deeper-night
 maron
 ::
 
+A fourth flavor, Winter, ships in the repo for light backgrounds.
+
 ## Highlights
 
-- **Thirty-four plugin integrations**, each one switchable.
+- **Plugin integrations**, each one switchable. Telescope, Treesitter, Flash, and native LSP ship with their own options.
 - **LSP support:** diagnostics, virtual lines, inlay hints, code lenses, and semantic tokens.
 - **Your colors:** override palette colors or highlight groups per flavor.
 - **Fast startup:** highlights are compiled once and reused.
 - **Readable:** every color is checked for contrast against its own background.
-- **Beyond Neovim:** matching themes for Alacritty, lazygit, and yazi.
+- **Beyond Neovim:** matching themes for Alacritty, lazygit, and yazi, plus lualine themes.
 
 ## Install
+
+`setup()` is optional. Call it before `:colorscheme` when you use it:
 
 ```lua [lua/plugins/nightfall.lua]
 return {

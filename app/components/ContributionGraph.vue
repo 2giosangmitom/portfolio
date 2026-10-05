@@ -115,4 +115,12 @@ const shade = ["bg-surface-strong", "bg-accent/30", "bg-accent/55", "bg-accent/8
       </UiButton>
     </div>
   </div>
+  <div v-else class="surface w-full max-w-full p-5 sm:p-8" aria-hidden="true">
+    <div class="flex gap-[3px] overflow-hidden" aria-label="Loading contributions">
+      <div v-for="i in 24" :key="i" class="grid grid-rows-7 gap-[3px]">
+        <span v-for="j in 7" :key="j" class="size-3 rounded-[2px] bg-surface-strong" />
+      </div>
+    </div>
+    <p class="mt-4 text-sm text-fg-subtle">Loading contributions…</p>
+  </div>
 </template>

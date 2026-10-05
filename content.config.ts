@@ -9,8 +9,6 @@ export default defineContentConfig({
         date: z.string(),
         updated: z.string().optional(),
         tags: z.array(z.string()).optional(),
-        cover: z.string().optional(),
-        coverAlt: z.string().optional(),
         readingTime: z.number().optional(),
       }),
     }),
@@ -24,7 +22,6 @@ export default defineContentConfig({
         order: z.number(),
         url: z.string().optional(),
         logo: z.string().optional(),
-        cover: z.string().optional(),
       }),
     }),
     experience: defineCollection({

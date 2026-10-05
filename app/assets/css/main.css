@@ -74,6 +74,12 @@
 @utility surface-link {
   @apply surface hover:border-line-strong hover:bg-surface active:scale-[0.99];
 }
+/* Keep the hovered card painted above its neighbors so its border is
+   never covered. No movement: the border stays exactly where it was. */
+.surface-link:hover {
+  position: relative;
+  z-index: 1;
+}
 @utility link {
   @apply border-b border-line text-fg hover:border-accent hover:text-accent;
 }

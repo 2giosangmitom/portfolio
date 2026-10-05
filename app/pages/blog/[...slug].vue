@@ -15,23 +15,15 @@ const { data: others } = await useAsyncData(`${path}-others`, () =>
     .all(),
 );
 const site = useSiteConfig();
-const coverUrl = post.value.cover ? new URL(post.value.cover, site.url).href : undefined;
 useSeoMeta({
   title: `${post.value.title} · Vo Quang Chien`,
   description: post.value.description,
   ogTitle: post.value.title,
   ogDescription: post.value.description,
   ogType: "article",
-  ogImage: coverUrl,
-  ogImageWidth: coverUrl ? 1200 : undefined,
-  ogImageHeight: coverUrl ? 630 : undefined,
-  ogImageType: coverUrl ? "image/jpeg" : undefined,
-  ogImageAlt: post.value.coverAlt ?? post.value.title,
-  twitterCard: "summary_large_image",
+  twitterCard: "summary",
   twitterTitle: post.value.title,
   twitterDescription: post.value.description,
-  twitterImage: coverUrl,
-  twitterImageAlt: post.value.coverAlt ?? post.value.title,
   author: profile.name,
   articlePublishedTime: post.value.date,
   articleModifiedTime: post.value.updated ?? post.value.date,
@@ -43,7 +35,6 @@ useSchemaOrg([
     "@type": "BlogPosting",
     headline: post.value.title,
     description: post.value.description,
-    image: coverUrl,
     datePublished: post.value.date,
     dateModified: post.value.updated ?? post.value.date,
     author: { name: profile.name, url: new URL("/about", site.url).href },
@@ -78,17 +69,6 @@ useSchemaOrg([
           >
         </p>
         <PageHeading :title="post.title" :description="post.description" />
-        <div class="overflow-hidden rounded-xl border border-line">
-          <ZoomableImage v-if="post.cover" :src="post.cover" :alt="post.coverAlt ?? post.title">
-            <ImageSlot
-              :src="post.cover"
-              :alt="post.coverAlt ?? post.title"
-              :hint="`blog/${path.split('/').pop()}.png · 1200×630`"
-              loading="eager"
-              sizes="sm:100vw md:100vw lg:900px"
-            />
-          </ZoomableImage>
-        </div>
         <ContentRenderer :value="post" class="mt-10 text-[1.0625rem]" />
       </article>
 

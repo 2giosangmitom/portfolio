@@ -3,8 +3,6 @@ title: "Books I recommend to developers"
 description: "Six books that shaped how I think about databases, systems, and programming languages, and who each one is for."
 date: "2025-03-31"
 updated: "2026-09-19"
-cover: "/images/blog/books.jpg"
-coverAlt: "Technical books and an open volume with diagrams in charcoal and teal."
 tags: ["books"]
 ---
 

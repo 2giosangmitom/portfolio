@@ -23,7 +23,7 @@ export default defineNuxtConfig({
     url: "https://2giosangmitom.github.io",
     name: "Vo Quang Chien",
     description:
-      "Vo Quang Chien, student developer at Hue University of Sciences, focused on backend, embedded systems, and AI.",
+      "Vo Quang Chien is a student developer at Hue University of Sciences. He focuses on backend and AI, and builds games for fun.",
     defaultLocale: "en",
   },
   // Social previews use the generated, static cover assets.
@@ -48,10 +48,10 @@ export default defineNuxtConfig({
   motionV: {
     presets: {
       reveal: {
-        initial: { opacity: 0, y: 16 },
+        initial: { opacity: 0, y: 12 },
         whileInView: { opacity: 1, y: 0 },
         inViewOptions: { once: true, margin: "0px 0px -5% 0px" },
-        transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+        transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
       },
     },
   },
@@ -82,9 +82,9 @@ export default defineNuxtConfig({
   icon: { clientBundle: { icons: ["ph:check"] } },
   fonts: {
     families: [
-      { name: "Tomorrow", weights: [500, 600] },
-      { name: "Public Sans", weights: [400, 500, 600, 700] },
-      { name: "Geist Mono", weights: [400, 500] },
+      { name: "Fraunces", weights: [500, 600] },
+      { name: "Inter", weights: [400, 500, 600] },
+      { name: "JetBrains Mono", weights: [400] },
     ],
   },
   vite: {

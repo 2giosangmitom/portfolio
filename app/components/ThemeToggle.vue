@@ -39,13 +39,13 @@ const rays = [
       height="1em"
       viewBox="0 0 24 24"
       aria-hidden="true"
-      style="--toggles-dot-dev--duration: 400ms"
+      style="--toggles-dot-dev--duration: 250ms"
     >
       <defs>
         <clipPath :id="clipMainId">
           <path
             d="M0 0h25a1 1 0 0010 10v14H0Z"
-            class="motion-safe:transition-[d,translate] motion-safe:duration-(--toggles-dot-dev--duration) motion-safe:dark:delay-[calc(var(--toggles-dot-dev--duration)*0.15)] dark:[d:path('M0_2h13a1_1_0_0010_10v14H0Z')] dark:not-supports-[d:path('M0_0')]:-translate-x-3.25 dark:not-supports-[d:path('M0_0')]:translate-y-0.5"
+            class="motion-safe:transition-[translate] motion-safe:duration-(--toggles-dot-dev--duration) motion-safe:dark:delay-[calc(var(--toggles-dot-dev--duration)*0.15)] dark:[d:path('M0_2h13a1_1_0_0010_10v14H0Z')] dark:not-supports-[d:path('M0_0')]:-translate-x-3.25 dark:not-supports-[d:path('M0_0')]:translate-y-0.5"
           />
         </clipPath>
       </defs>

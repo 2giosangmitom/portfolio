@@ -53,16 +53,15 @@ onMounted(loadMore);
         </h1>
         <div v-reveal="rise(0.08)" class="space-y-4 text-lg leading-relaxed">
           <p>
-            Currently hacking on backend services, embedded systems, and AI. I’m interested in how
-            things work behind the scenes, from APIs and databases to the software that interacts
-            with hardware. I learn by building projects and working through the details along the
-            way.
+            I focus on backend and AI. I like knowing how things work underneath, from APIs and
+            databases to the services around them. I learn by building projects and working through
+            the details along the way.
           </p>
           <p>
             I also build Neovim tools like
             <NuxtLink to="/projects/sqmeow-nvim" class="link">sqmeow.nvim</NuxtLink> and
             <NuxtLink to="/projects/nightfall-nvim" class="link">nightfall.nvim</NuxtLink>, and
-            contribute fixes to the open source tools I use.
+            develop games for fun.
           </p>
           <p>
             Most of my coding happens in Neovim on Arch Linux. This site is where I share what I’m
@@ -93,8 +92,7 @@ onMounted(loadMore);
     <section v-reveal aria-labelledby="usage" class="mt-32 max-w-3xl">
       <SectionHeading id="usage">Tech stack</SectionHeading>
       <p class="mb-8">
-        What I use to design, build, and ship: TypeScript most days, Python for AI work, and Rust
-        when speed matters.
+        I use TypeScript most days, Python for AI work, and Rust when speed matters.
       </p>
       <dl class="grid gap-6 sm:grid-cols-2">
         <div v-for="u in usage" :key="u.group">

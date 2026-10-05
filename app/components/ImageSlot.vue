@@ -11,9 +11,7 @@ const props = defineProps<{
 const dev = import.meta.dev;
 const eager = computed(() => props.loading === "eager");
 const imgClass = computed(() =>
-  props.fit === "cover"
-    ? "size-full object-cover transition-[filter] duration-500"
-    : "h-auto w-full transition-[filter] duration-500",
+  props.fit === "cover" ? "size-full bg-surface object-cover" : "h-auto w-full bg-surface",
 );
 </script>
 
@@ -28,15 +26,13 @@ const imgClass = computed(() =>
     :loading="loading ?? 'lazy'"
     :preload="eager ? { fetchPriority: 'high' } : undefined"
     :fetchpriority="eager ? 'high' : undefined"
-    placeholder
-    placeholder-class="blur-xl"
     :class="imgClass"
   />
   <span
     v-else
     role="img"
     :aria-label="`${alt} (image coming soon)`"
-    class="grid size-full place-items-center bg-surface-strong bg-[radial-gradient(var(--line-strong)_1px,transparent_1px)] bg-size-[14px_14px] p-3 text-center"
+    class="grid size-full place-items-center bg-surface-strong p-3 text-center"
   >
     <span class="font-mono text-xs text-fg-subtle">
       <span class="mx-auto mb-1 block w-fit"

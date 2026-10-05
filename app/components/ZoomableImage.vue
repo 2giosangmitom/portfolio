@@ -33,7 +33,7 @@ onUnmounted(() => {
         role="dialog"
         aria-modal="true"
         :aria-label="props.alt"
-        class="fixed inset-0 z-[100] flex cursor-zoom-out items-center justify-center bg-black/70 p-4 backdrop-blur-[2px] md:p-8"
+        class="fixed inset-0 z-[100] flex cursor-zoom-out items-center justify-center bg-black/70 p-4 md:p-8"
         @click="close"
       >
         <img

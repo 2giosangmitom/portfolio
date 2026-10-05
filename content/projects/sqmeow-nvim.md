@@ -1,20 +1,19 @@
 ---
 title: sqmeow.nvim
-description: A keyboard-driven database client for Neovim. Browse schemas, query SQL and NoSQL databases, and review in-grid edits through a separate Rust engine.
+description: Your database, right inside Neovim. Explore schemas, run queries, and edit results without leaving your editor.
 kind: product
 repo: 2giosangmitom/sqmeow.nvim
 stack: ["Rust", "Lua", "Neovim"]
-cover: /images/projects/sqmeow-nvim/overview.png
 order: 1
 ---
 
-I build and maintain sqmeow.nvim to keep database work inside Neovim. The Lua interface brings together a schema drawer, persistent query scratchpads, and a result grid. A separate Rust process executes queries and returns results in pages, keeping the editor responsive while I work.
+sqmeow.nvim puts your database inside Neovim. Browse schemas, run queries, and edit results without leaving the editor. A separate Rust process runs the queries and pages large results, so Neovim stays responsive.
 
 ## From a connection to a result
 
 Keep several connections open, browse schemas and tables, then run the statement under the cursor, a visual selection, or an entire buffer. Scratchpads and query history persist across restarts. Query plans from `EXPLAIN` and errors appear alongside results.
 
-The same interface supports PostgreSQL and CockroachDB, MySQL and MariaDB, SQLite, DuckDB, ClickHouse, Redis-compatible servers, MongoDB, ScyllaDB and Cassandra, SurrealDB, and Oracle Database. ClickHouse results are read-only.
+The same interface supports PostgreSQL and CockroachDB, MySQL and MariaDB, SQLite, DuckDB, ClickHouse, Redis-compatible servers, MongoDB, ScyllaDB and Cassandra, SurrealDB, Oracle Database, and Microsoft SQL Server. ClickHouse results are read-only.
 
 ::media{src="/images/projects/sqmeow-nvim/table-structure.png" alt="PostgreSQL columns, indexes, and table definition displayed inside Neovim"}
 Inspect types, keys, indexes, and the table definition without opening another tool.
@@ -28,6 +27,10 @@ Edit a cell, stage a new row, or mark rows for deletion in the result grid. Open
 The review window shows exactly which statements will run.
 ::
 
+## Project connections and completion
+
+A project can declare its databases in `.sqmeow/connections.toml`, one section per connection, so cloning the repo is enough to share the setup. Scratchpads complete schema, table, and column names through blink.cmp or nvim-cmp, with query-aware column suggestions when the `sql` Treesitter parser is installed.
+
 ## Everyday database tools
 
 - **Filter and sort:** SQL queries rerun on the database; MongoDB uses filter and sort documents. Redis, ScyllaDB, SurrealDB, and closed connections filter cached results in memory.
@@ -37,7 +40,7 @@ The review window shows exactly which statements will run.
 
 ## Get started
 
-Requires Neovim 0.10+ and nui.nvim. Install with lazy.nvim, run `:checkhealth sqmeow`, then open `:Sqmeow` and add a connection. The [repository README](https://github.com/2giosangmitom/sqmeow.nvim#readme) contains the installation snippet, supported connection URLs, and keymap reference.
+Requires Neovim 0.10+ and nui.nvim. Install with lazy.nvim, run `:checkhealth sqmeow`, then open `:Sqmeow` and add a connection. The [repository README](https://github.com/2giosangmitom/sqmeow.nvim#readme) contains the installation snippet, supported connection URLs, and keymap reference, with extra setups for mini.deps and vim.pack.
 
 - [Introducing sqmeow.nvim](/blog/introducing-sqmeow-nvim): a closer look at the features.
 - [How I use Neovim as a database client](/blog/sqmeow-nvim): my setup and daily workflow.

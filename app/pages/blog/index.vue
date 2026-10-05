@@ -1,6 +1,5 @@
 <script setup lang="ts">
-const description =
-  "Notes on backend engineering, AI, and the tools I use every day, written as I learn.";
+const description = "Notes on backend, AI, and games I build for fun, written as I learn.";
 useSeoMeta({
   title: "Blog · Vo Quang Chien",
   description,
@@ -12,7 +11,7 @@ useSchemaOrg([defineWebPage({ "@type": "CollectionPage", description })]);
 const { data: posts } = await useAsyncData("posts", () =>
   queryCollection("blog")
     .order("date", "DESC")
-    .select("path", "title", "description", "date", "cover", "coverAlt", "readingTime")
+    .select("path", "title", "description", "date", "readingTime")
     .all(),
 );
 </script>
@@ -21,22 +20,16 @@ const { data: posts } = await useAsyncData("posts", () =>
   <div>
     <PageHeading
       title="Blog"
-      description="Notes on backend engineering, AI, and the tools I use every day, written as I learn."
+      description="Notes on backend, AI, and games I build for fun, written as I learn."
     />
     <ul v-if="posts?.length" class="flex max-w-[950px] flex-col gap-y-8">
-      <li v-for="p in posts" :key="p.path" v-reveal>
-        <NuxtLink
-          :to="p.path"
-          class="surface-link group flex flex-col items-start gap-6 p-5 lg:flex-row lg:items-center"
-        >
-          <span class="block w-full shrink-0 overflow-hidden rounded-md lg:w-[360px]">
-            <ImageSlot
-              :src="p.cover"
-              :alt="p.coverAlt ?? p.title"
-              :hint="`blog/${p.path.split('/').pop()}.png · 1200×630`"
-              sizes="sm:100vw md:100vw lg:360px"
-            />
-          </span>
+      <li
+        v-for="p in posts"
+        :key="p.path"
+        v-reveal
+        class="[content-visibility:auto] [contain-intrinsic-size:auto_240px]"
+      >
+        <NuxtLink :to="p.path" class="surface-link group block p-5">
           <span class="max-w-lg">
             <span
               class="block font-display text-2xl font-semibold tracking-tight text-fg group-hover:text-accent"

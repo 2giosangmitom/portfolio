@@ -3,8 +3,6 @@ title: "How I use Neovim as a database client"
 description: "My sqmeow.nvim workflow: connect databases, write SQL in persistent scratchpads, inspect paged results, and review edits without leaving Neovim."
 date: "2026-09-19"
 updated: "2026-09-29"
-cover: "/images/blog/sqmeow-nvim.jpg"
-coverAlt: "A keyboard connected through a terminal to three databases."
 tags: ["neovim", "database", "rust"]
 ---
 
@@ -19,7 +17,7 @@ My database workflow stays alongside the code.
 ## Why sqmeow
 
 - **A Rust engine.** Queries run outside the editor, and results come back in pages. Paged results keep large queries from blocking the editor.
-- **Many databases, one workflow.** PostgreSQL, MySQL, SQLite, DuckDB, Redis, MongoDB, ScyllaDB, SurrealDB, ClickHouse, and Oracle.
+- **Many databases, one workflow.** PostgreSQL, MySQL, SQLite, DuckDB, Redis, MongoDB, ScyllaDB, SurrealDB, ClickHouse, Oracle, and Microsoft SQL Server.
 - **A schema drawer.** Browse schemas, tables, views, and columns with their types and keys.
 - **Edit results in place.** Change cells, add or delete rows, and review the staged changes before they're applied.
 - **Safe by default.** It asks before a `DELETE` without `WHERE`, a `DROP`, or a `TRUNCATE`, and connections can be read-only.
@@ -48,7 +46,7 @@ return {
 }
 ```
 
-Run `:checkhealth sqmeow` to confirm the engine is installed.
+Run `:checkhealth sqmeow` to confirm the engine is installed. Prebuilt binaries ship for Linux x86_64 and ARM64, Apple Silicon, and Windows x86_64. Other machines build from source.
 
 ## Run your first query
 
@@ -99,6 +97,36 @@ export SQMEOW_CONNECTIONS='[{"name": "dev", "url": "postgres://app:{{ env \"PGPA
 ```
 
 Besides `env`, you can use `{{ exec "cmd" }}` to ask a password manager, or `{{ file "path" }}` to read a file. For production databases, tick **Read only** when you add the connection.
+
+A project can keep its connections in `.sqmeow/connections.toml` instead, one section per database:
+
+```toml [.sqmeow/connections.toml]
+[dev_db]
+type = "postgres"
+host = "localhost"
+port = 5432
+database = "my_app_dev"
+user = "dev_user"
+```
+
+Project files accept `env` and `file` templates but reject `exec`.
+
+## Complete table and column names
+
+Scratchpads suggest schema, table, and column names through blink.cmp or nvim-cmp. With blink.cmp, register the source:
+
+```lua
+require("blink.cmp").setup({
+  sources = {
+    default = { "lsp", "path", "buffer", "sqmeow" },
+    providers = {
+      sqmeow = { name = "Sqmeow", module = "sqmeow.completion.blink" },
+    },
+  },
+})
+```
+
+Install the `sql` Treesitter parser for suggestions that follow table aliases into `WHERE`, `GROUP BY`, and `ORDER BY`.
 
 ## Bonus: SQL linting and formatting with sqruff
 

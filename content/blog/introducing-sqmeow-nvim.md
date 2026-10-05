@@ -3,12 +3,10 @@ title: "Introducing sqmeow.nvim"
 description: "A Rust-powered database client for Neovim with persistent scratchpads, paged results, in-grid editing, and support for SQL and NoSQL databases."
 date: "2026-09-19"
 updated: "2026-09-29"
-cover: "/images/blog/introducing-sqmeow-nvim.jpg"
-coverAlt: "A charcoal cat beside a database cylinder and terminal window."
 tags: ["neovim", "database", "rust", "sqmeow"]
 ---
 
-sqmeow.nvim is a database client that lives inside Neovim. You browse schemas, write queries, and read, filter, and edit results without leaving the editor. A separate Rust process runs the queries and returns paged results, while the Lua interface keeps the workflow inside the editor.
+sqmeow.nvim is a database client that lives inside Neovim. You browse schemas, write queries, and read, filter, and edit results without leaving the editor. A separate Rust process runs the queries and returns paged results.
 
 ::media{src="/images/projects/sqmeow-nvim/overview.png" alt="Neovim with a PostgreSQL schema drawer, SQL scratchpad, and paged query results"}
 The schema drawer, SQL scratchpad, and paged results in one editor.
@@ -36,10 +34,15 @@ The same drawer, scratchpad, and result window work across SQL and NoSQL databas
 | ScyllaDB, Cassandra      | CQL             |
 | SurrealDB                | SurrealQL       |
 | Oracle Database          | SQL             |
+| Microsoft SQL Server     | SQL             |
 
 ## Persistent scratchpads and multiple connections
 
 Keep several databases open at once and save query buffers as scratchpads. Press `u` on a connection to make it active, or use `:Sqmeow bind` to tie a buffer to a specific connection. Run the statement under the cursor, a visual selection, or the whole buffer. `EXPLAIN` output and query errors appear in the result window.
+
+A project can declare its databases in `.sqmeow/connections.toml`, one section per connection, so the setup travels with the repo. `SQMEOW_CONNECTIONS` covers the environment-variable case.
+
+Scratchpads complete schema, table, and column names through blink.cmp or nvim-cmp. Install the `sql` Treesitter parser for query-aware column suggestions in `WHERE`, `GROUP BY`, and `ORDER BY`.
 
 ## A schema drawer
 
@@ -70,7 +73,7 @@ Results can be saved to a query log that survives restarts. `:Sqmeow log` reopen
 ## Safe by default
 
 - **Confirmations.** sqmeow asks before a `DELETE` or `UPDATE` without `WHERE`, a `DROP`, or a `TRUNCATE`.
-- **Read-only connections.** Tick **Read only** when adding a connection. PostgreSQL, MySQL, ClickHouse, SQLite, and DuckDB enforce it in the database session. Other drivers check commands against a list of reads; use a read-only database account when access control matters.
+- **Read-only connections.** Tick **Read only** when adding a connection. PostgreSQL, MySQL, ClickHouse, SQLite, and DuckDB enforce it in the database session. Redis, MongoDB, ScyllaDB, SurrealDB, and OracleDB check statements instead, so use a read-only database account when access control matters.
 - **No passwords in dotfiles.** URLs can read secrets with `{{ env "VAR" }}`, `{{ exec "cmd" }}`, or `{{ file "path" }}`, and passwords are masked wherever a URL is shown.
 - **SSH tunnels.** Reach a database behind a bastion with your own `ssh` setup.
 
@@ -91,7 +94,7 @@ return {
 }
 ```
 
-Then run `:Sqmeow`. For a full setup with keymaps, connections, and SQL linting, read [How I use Neovim as a database client](/blog/sqmeow-nvim).
+Then run `:Sqmeow`. The README also covers mini.deps and vim.pack setups. For a full setup with keymaps, connections, and SQL linting, read [How I use Neovim as a database client](/blog/sqmeow-nvim).
 
 ::note
 sqmeow.nvim is open source under the MIT license. Bug reports, feature requests, and pull requests are welcome on [GitHub](https://github.com/2giosangmitom/sqmeow.nvim).

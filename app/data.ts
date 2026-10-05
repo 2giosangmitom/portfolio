@@ -2,9 +2,9 @@ export const profile = {
   name: "Vo Quang Chien",
   handle: "2giosangmitom",
   school: "Hue University of Sciences",
-  headline: "Focused on backend, embedded systems, and AI.",
+  headline: "Backend, AI, and games for fun.",
   summary:
-    "I'm Chien, a student developer at Hue University of Sciences. I build backend services and explore embedded systems and practical applications of AI.",
+    "I'm Chien, a student developer at Hue University of Sciences. I focus on backend and AI, and I build games for fun.",
   photo: "/images/2giosangmitom.png",
 };
 
